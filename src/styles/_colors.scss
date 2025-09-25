@@ -20,7 +20,8 @@ $palette-dark: (
 @mixin css-vars($map, $prefix: "") {
      @each $key, $value in $map {
           // CSS custom property names use double-dash style
-          --#{$prefix}#{$key}: #{$value};
+          // Coerce prefix+key to a string to avoid interpolating bare color names
+          --#{"#{$prefix}#{$key}"}: #{$value};
      }
 }
 

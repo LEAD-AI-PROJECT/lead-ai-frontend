@@ -1,10 +1,10 @@
-@import "tailwindcss";
 @use "../../styles/colors" as *;
+@import "tailwindcss";
 
 .navbar {
      background-color: #{color($palette, white)};
      color: #{color($palette, foreground)};
-     padding: 1rem 4rem;
+     padding: 1rem 6rem;
      display: flex;
      justify-content: space-between;
      align-items: center;
@@ -13,6 +13,18 @@
      .navbar-item {
           display: flex;
           align-items: center;
-          gap: 1rem;
+          gap: 2rem;
+
+          .navbar-link {
+               text-decoration: none;
+               color: inherit;
+               font-weight: 500;
+               font-size: 1rem;
+               transition: color 0.3s;
+
+               &:hover {
+                    color: #{color($palette, primary)};
+               }
+          }
      }
 }
