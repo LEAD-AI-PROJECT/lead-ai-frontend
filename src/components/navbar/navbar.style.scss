@@ -1,0 +1,18 @@
+@import "tailwindcss";
+@use "../../styles/colors" as *;
+
+.navbar {
+     background-color: #{color($palette, white)};
+     color: #{color($palette, foreground)};
+     padding: 1rem 4rem;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     border-bottom: 1px solid var(--muted);
+
+     .navbar-item {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+     }
+}

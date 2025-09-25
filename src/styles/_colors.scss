@@ -1,0 +1,33 @@
+// Sass color definitions and helpers
+// Exposes color maps and a mixin to generate CSS custom properties
+
+@use "sass:map";
+
+$palette: (
+     background: #f6f6f6,
+     foreground: #171717,
+     white: #ffffff,
+     primary: #8c52ff,
+     secondary: #ff914d,
+);
+
+$palette-dark: (
+     background: #0a0a0a,
+     foreground: #ededed,
+);
+
+// Generate CSS custom properties from a map under a given prefix
+@mixin css-vars($map, $prefix: "") {
+     @each $key, $value in $map {
+          // CSS custom property names use double-dash style
+          --#{$prefix}#{$key}: #{$value};
+     }
+}
+
+// Return a value from a map with fallback (module API)
+@function color($map, $key, $fallback: null) {
+     @if map.has_key($map, $key) {
+          @return map.get($map, $key);
+     }
+     @return $fallback;
+}
