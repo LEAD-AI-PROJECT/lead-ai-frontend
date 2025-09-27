@@ -253,3 +253,49 @@
           align-items: center;
      }
 }
+
+.home-solution {
+     margin: -2rem -3rem;
+     background-image: url("/assets/img/home/home.solution.bg.png");
+     background-repeat: no-repeat;
+     background-size: cover;
+     padding: 2rem 3rem;
+     color: white;
+
+     .home-solution-content {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+
+          .home-solution-content-item {
+               display: flex;
+               flex-direction: column;
+               gap: 1rem;
+               padding: 4rem;
+
+               .home-solution-content-title {
+                    font-size: 48px;
+                    font-weight: 600;
+                    color: #{color($palette, white)};
+               }
+
+               .home-solution-content-subtitle {
+                    font-size: 26px;
+                    font-weight: 400;
+                    color: #{color($palette, white)};
+               }
+
+               .home-solution-content-description {
+                    font-size: 24px;
+                    font-weight: 200;
+                    color: #{color($palette, white)};
+               }
+
+               .home-solution-content-action {
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    width: 100%;
+               }
+          }
+     }
+}

@@ -1,3 +1,34 @@
+import Link from "next/link";
+
 export default function HomeSolutionView() {
-     return <div>SolutionView</div>;
+     return (
+          <div className="home-solution">
+               <div className="home-solution-content">
+                    <div className="home-solution-content-item">
+                         <div className="home-solution-content-title">
+                              Solution <br /> Overview
+                         </div>
+                         <div className="home-solution-content-subtitle">
+                              The Lead AI Platform: Data Cleaning Made Effortless
+                         </div>
+                         <div className="home-solution-content-description">
+                              Training AI starts with clean, structured data. Our platform helps you
+                              transform raw research datasets into high-quality inputs ready for
+                              model training. Just upload your data, no manual formatting, no
+                              second-guessing. Backed by our patented technology, the platform
+                              applies pre-trained rules and domain logic to help you prepare
+                              high-quality data in minutes, not weeks!
+                         </div>
+                         <div className="home-solution-content-subtitle">
+                              Get early access and see how it worked before anyone else
+                         </div>
+                         <div className="home-solution-content-action">
+                              <Link href={"#"} className="text-3xl font-bold">
+                                   Join the Waitlist {`>`}
+                              </Link>
+                         </div>
+                    </div>
+               </div>
+          </div>
+     );
 }
