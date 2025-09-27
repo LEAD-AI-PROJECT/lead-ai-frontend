@@ -93,6 +93,17 @@ button {
           }
      }
 
+     &.dark {
+          background-color: var(--dark);
+          color: var(--white);
+
+          &.bordered {
+               border: 2px solid var(--dark);
+               background-color: var(--white);
+               color: var(--dope);
+          }
+     }
+
      &:active {
           transform: scale(0.95);
           transition: transform 0.3s;

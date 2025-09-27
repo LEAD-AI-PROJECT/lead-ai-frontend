@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { HomeNewsEventItemProps } from "../home.news.event.item";
 
 export const HomeNewsEventCardView = ({
