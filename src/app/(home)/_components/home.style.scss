@@ -186,3 +186,70 @@
           justify-content: flex-end;
      }
 }
+
+.home-services {
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+     gap: 1rem;
+     padding: 0rem 6rem;
+
+     .home-services-header {
+          text-align: center;
+          font-size: 64px;
+          font-weight: 100;
+          color: #{color($palette, foreground)};
+     }
+
+     .home-services-subheader {
+          text-align: center;
+          font-size: 26px;
+          font-weight: 100;
+          color: #777777;
+          width: 60%;
+          margin: 0 auto;
+     }
+}
+
+.home-service-card {
+     padding: 2rem;
+     color: white;
+     display: grid;
+     gap: 1rem;
+     border-radius: 20px;
+     width: 100%;
+     overflow: hidden;
+
+     &.v1 {
+          background: linear-gradient(to right, #8c52ff, #2e0a75);
+     }
+
+     &.v2 {
+          background: linear-gradient(to bottom right, #6b05b4, #ff914d);
+          max-width: 500px;
+     }
+
+     &.v3 {
+          background: linear-gradient(to bottom right, #ff914d, #cc5b15);
+     }
+     .content {
+          max-width: 895px;
+          .title {
+               font-size: 64px;
+               font-weight: 600;
+          }
+
+          .description {
+               font-size: 24px;
+               font-weight: 300;
+               color: white;
+          }
+     }
+     .action {
+          width: 100%;
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+     }
+}
