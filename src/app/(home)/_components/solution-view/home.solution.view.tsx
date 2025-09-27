@@ -23,7 +23,7 @@ export default function HomeSolutionView() {
                               Get early access and see how it worked before anyone else
                          </div>
                          <div className="home-solution-content-action">
-                              <Link href={"#"} className="text-3xl font-bold">
+                              <Link href={"#"} className="text-4xl m-2 mt-6">
                                    Join the Waitlist {`>`}
                               </Link>
                          </div>
