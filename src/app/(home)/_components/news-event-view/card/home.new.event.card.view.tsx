@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { HomeNewsEventItemProps } from "../home.news.event.item";
 
 export const HomeNewsEventCardView = ({
@@ -11,7 +12,7 @@ export const HomeNewsEventCardView = ({
      return (
           <div className="home-news-event-card">
                <div className="img-event">
-                    <img src={image.src} alt={title} />
+                    <Image src={image} alt={title} />
                </div>
                <div className="user-chip">{user}</div>
                <div className="title">{title}</div>

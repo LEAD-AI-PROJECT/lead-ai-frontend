@@ -1,5 +1,6 @@
 import Link from "next/link";
 import gif from "@public/assets/gif/gif lead-min.gif";
+import Image from "next/image";
 export default function HomeSolutionView() {
      return (
           <div id="solutions" className="home-solution">
@@ -29,7 +30,12 @@ export default function HomeSolutionView() {
                          </div>
                     </div>
                     <div className="home-solution-content-item">
-                         <img src={gif.src} alt="gif" />
+                         <Image
+                              unoptimized // <-- penting biar GIF tetap animasi
+                              priority
+                              src={gif}
+                              alt="gif"
+                         />
                     </div>
                </div>
           </div>
