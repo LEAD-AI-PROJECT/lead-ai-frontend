@@ -1,16 +1,12 @@
 @use "../../styles/colors" as *;
-@import "tailwindcss";
 
 .navbar {
      background-color: #{color($palette, white)};
      color: #4f4f4f;
      width: 100%;
      padding: 1rem 6rem;
-     // display: flex;
-     // justify-content: space-between;
      display: grid;
      grid-template-columns: repeat(3, 1fr);
-     width: 100%;
      align-items: center;
      border-bottom: 1px solid var(--muted);
 
@@ -36,7 +32,6 @@
 
                &:hover {
                     color: #{color($palette, primary)};
-                    // font-weight: 600;
                }
           }
      }
