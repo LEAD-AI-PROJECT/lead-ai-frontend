@@ -4,7 +4,7 @@ import { serviceItems } from "./home.services.item";
 
 export default function HomeServicesView() {
      return (
-          <div className="p-[3rem]">
+          <div id="services" className="p-[3rem]">
                <div className="home-services">
                     <div className="home-services-header">Services Overview</div>
                     <div className="home-services-subheader">
@@ -18,7 +18,9 @@ export default function HomeServicesView() {
                          <div className="flex justify-between gap-8">
                               {serviceItems?.map((item, index) => {
                                    if (index > 0) {
-                                        return <HomeServiceCard key={item.link} item={item} />;
+                                        return (
+                                             <HomeServiceCard key={item.link + index} item={item} />
+                                        );
                                    }
                               })}
                          </div>

@@ -14,7 +14,7 @@ export default function HomeFormView() {
      const [subject, setSubject] = useState("general");
 
      return (
-          <div className="py-[3rem] px-[8rem] bg-white">
+          <div id="company" className="py-[3rem] px-[8rem] bg-white">
                <div className="home-form">
                     <div className="home-form-content">
                          <div className="home-form-content-title">Free Data Cleaning Trial</div>

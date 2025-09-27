@@ -6,7 +6,7 @@ export interface NavarItemInterface {
 }
 
 export const navbarItem: NavarItemInterface[] = [
-     { label: "Home", href: "#", icon: "home" },
+     { label: "Home", href: "#home", icon: "home" },
      { label: "Solutions", href: "#solutions", icon: "info" },
      { label: "Services", href: "#services", icon: "phone" },
      { label: "Resources", href: "#resources", icon: "phone" },

@@ -4,7 +4,7 @@ import itbLogo from "@public/assets/img/home/itb-logo.svg";
 import Image from "next/image";
 export default function HomeJumbotronView() {
      return (
-          <div className="p-[3rem]">
+          <div id="home" className="p-[3rem]">
                <div className="home-jumbotron">
                     <div className="home-jumbotron-content">
                          <div className="home-jumbotron-content-title">

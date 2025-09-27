@@ -1,8 +1,8 @@
 import Link from "next/link";
-
+import gif from "@public/assets/gif/gif lead-min.gif";
 export default function HomeSolutionView() {
      return (
-          <div className="home-solution">
+          <div id="solutions" className="home-solution">
                <div className="home-solution-content">
                     <div className="home-solution-content-item">
                          <div className="home-solution-content-title">
@@ -27,6 +27,9 @@ export default function HomeSolutionView() {
                                    Join the Waitlist {`>`}
                               </Link>
                          </div>
+                    </div>
+                    <div className="home-solution-content-item">
+                         <img src={gif.src} alt="gif" />
                     </div>
                </div>
           </div>

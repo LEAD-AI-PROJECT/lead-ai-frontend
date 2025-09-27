@@ -3,7 +3,7 @@ import { homePublicationItems } from "./home.publication.item";
 
 export default function HomePublicationView() {
      return (
-          <div className="home-publication">
+          <div id="resources" className="home-publication">
                <div className="home-publication-title">Publication</div>
                <div className="home-publication-subtitle">
                     Explore selected papers and patents from the Lead AI team. Each publication
