@@ -36,15 +36,12 @@ body {
      align-items: center;
 
      .body-item {
-          // Mobile default (phone)
-          padding: 2rem 3rem;
           min-height: 320px;
 
           main {
                display: grid;
                grid-template-columns: 1fr;
                width: 100%;
-               gap: 8rem;
           }
 
           // Tablet
