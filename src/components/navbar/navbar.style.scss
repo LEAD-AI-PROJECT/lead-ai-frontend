@@ -4,6 +4,7 @@
 .navbar {
      background-color: #{color($palette, white)};
      color: #{color($palette, foreground)};
+     width: 100%;
      padding: 1rem 6rem;
      display: flex;
      justify-content: space-between;
