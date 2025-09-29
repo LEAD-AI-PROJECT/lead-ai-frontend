@@ -3,30 +3,102 @@
 .navbar {
      background-color: #{color($palette, white)};
      color: #4f4f4f;
-     width: 100%;
-     padding: 1rem 6rem;
+     width: 100% !important;
+     padding: 2rem 6rem;
      display: grid;
      grid-template-columns: repeat(3, 1fr);
      align-items: center;
      border-bottom: 1px solid var(--muted);
+     transition: ease-in;
+     position: sticky;
+     top: 0;
+     z-index: 9999;
+
+     /* CSS vars (bisa diisi dari JS kalau perlu) */
+     --navbar-h: 80px;
+     --nav-left: 0px;
+     --nav-right: 0px;
+
+     /* Laptop Large (lg): 1024–1439.98 */
+     @media (min-width: 1024px) and (max-width: 1439.98px) {
+          padding: 2rem 2rem;
+          gap: 1rem;
+     }
+
+     /* Tablet: 768–1023.98 */
+     @media (min-width: 768px) and (max-width: 1023.98px) {
+          padding: 1rem 1rem;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 1rem;
+     }
+
+     /* Mobile L: 424.98–767.98 */
+     @media (min-width: 424.98px) and (max-width: 767.98px) {
+          padding: 1rem 1rem;
+          grid-template-columns: repeat(1, 1fr);
+          gap: 1rem;
+     }
+
+     /* Mobile M: 375–424.98 */
+     @media (min-width: 375px) and (max-width: 424.98px) {
+          padding: 1rem 1rem;
+          grid-template-columns: repeat(1, 1fr);
+          gap: 1rem;
+     }
+
+     /* Mobile S: <375 */
+     @media (max-width: 374.98px) {
+          padding: 1rem 0.5rem;
+          grid-template-columns: repeat(1, 1fr);
+          gap: 0.5rem;
+     }
 
      .navbar-item {
           display: flex;
           align-items: center;
           gap: 2rem;
 
-          &.end {
-               justify-content: flex-end;
+          &.logo {
+               gap: 10px;
+               button {
+                    display: none;
+               }
           }
 
-          &.center {
+          &.action {
+               justify-content: flex-end;
+          }
+          &.link {
                justify-content: center;
+          }
+
+          /* ≤1023.98px: show burger, hide inline links (S/M/L + Tablet) */
+          @media (max-width: 1023.98px) {
+               &.logo button {
+                    display: block;
+                    border-radius: 50%;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                    aspect-ratio: 1/1;
+               }
+               &.link {
+                    display: none;
+               }
+          }
+
+          @media (max-width: 767.98px) {
+               &.logo {
+                    display: flex;
+                    justify-content: space-between;
+               }
+               &.link {
+                    display: none;
+               }
           }
 
           .navbar-link {
                text-decoration: none;
                color: inherit;
-               font-weight: 350;
+               font-weight: 400;
                font-size: 18px;
                transition: color 0.3s;
 
@@ -35,9 +107,105 @@
                }
           }
      }
+}
 
-     transition: ease-in;
-     position: sticky;
+/* ===== Overlay full-bleed ===== */
+.nav-overlay {
+     display: none;
+     position: fixed;
      top: 0;
-     z-index: 9999;
+     bottom: 0;
+     left: calc(var(--nav-left, 0px) * -1);
+     right: calc(var(--nav-right, 0px) * -1);
+     z-index: 8887;
+     background: rgba(0, 0, 0, 0.15);
+}
+.nav-overlay.active {
+     display: block;
+}
+
+/* ===== Dropdown full-bleed tepat di bawah navbar ===== */
+.nav-dropdown {
+     display: none;
+     position: fixed;
+     top: var(--navbar-h, 80px);
+     left: calc(var(--nav-left, 0px) * -1);
+     right: calc(var(--nav-right, 0px) * -1);
+     z-index: 8888; /* < navbar biar “di belakang” */
+     background: #{color($palette, white)};
+     border-bottom: 1px solid var(--muted);
+     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+     padding: 0.75rem 1rem;
+     transform: translateY(-12px);
+     opacity: 0;
+     pointer-events: none;
+     transition: transform 0.2s ease, opacity 0.2s ease;
+
+     .navbar-link {
+          display: block;
+          padding: 0.5rem 0.25rem;
+          font-size: 16px;
+     }
+
+     /* container buat action di bawah dropdown */
+     .dropdown-actions {
+          display: none;
+     }
+}
+.nav-dropdown.active {
+     display: block;
+     transform: translateY(0);
+     opacity: 1;
+     pointer-events: auto;
+}
+
+/* ≤1023.98px: dropdown enabled (biar animasinya jalan) */
+@media (max-width: 1023.98px) {
+     .nav-dropdown {
+          display: block;
+     }
+}
+
+/* ≤767.98px (Mobile S/M/L): pindahin action ke bawah dropdown */
+@media (max-width: 767.98px) {
+     /* hide action bar di top navbar */
+     .navbar .navbar-item.action {
+          display: none !important;
+     }
+
+     /* show action di bawah list link */
+     .nav-dropdown .dropdown-actions {
+          display: flex;
+          flex-direction: column;
+          gap: 0.6rem;
+          margin-top: 0.5rem;
+          padding-top: 0.75rem;
+          border-top: 1px solid var(--muted);
+     }
+
+     .nav-dropdown .dropdown-actions .navbar-link {
+          display: block;
+          text-align: center;
+          padding: 0.6rem 0.75rem;
+          font-size: 16px;
+     }
+     .nav-dropdown .dropdown-actions .primary {
+          width: 100%;
+     }
+}
+
+/* >=1024: matikan dropdown & overlay */
+@media (min-width: 1024px) {
+     .nav-dropdown,
+     .nav-overlay {
+          display: none !important;
+     }
+}
+
+/* Safe area iOS */
+@supports (padding: max(0px)) {
+     .nav-dropdown {
+          padding-left: max(1rem, env(safe-area-inset-left));
+          padding-right: max(1rem, env(safe-area-inset-right));
+     }
 }

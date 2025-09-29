@@ -2,6 +2,7 @@
 // Exposes color maps and a mixin to generate CSS custom properties
 
 @use "sass:map";
+@import "tailwindcss";
 
 $palette: (
      background: #f6f6f6,
