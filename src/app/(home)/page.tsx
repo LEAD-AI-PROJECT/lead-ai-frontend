@@ -10,14 +10,14 @@ import HomeWhyLeadAIView from "./_components/why-lead-ai-view/home.why-lead-ai.v
 export default function Home() {
      return (
           <main>
-               <HomeJumbotronView />
-               <HomeWhyLeadAIView />
+               {/* <HomeJumbotronView /> */}
+               {/* <HomeWhyLeadAIView />
                <HomeServicesView />
                <HomeSolutionView />
                <HomePublicationView />
                <HomeNewsEventView />
-               <HomeDemoView />
-               <HomeFormView />
+               <HomeDemoView /> */}
+               {/* <HomeFormView /> */}
           </main>
      );
 }
