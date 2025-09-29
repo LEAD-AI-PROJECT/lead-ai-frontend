@@ -26,7 +26,7 @@ export default function RootLayout({
                <body>
                     <NavbarView />
                     <div className="body-item">{children}</div>
-                    {/* <FooterView /> */}
+                    <FooterView />
                </body>
           </html>
      );
