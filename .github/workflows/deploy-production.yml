@@ -45,6 +45,7 @@ jobs:
                            captain-definition
                            tsconfig.json
                            next.config.ts
+                           public/
                       outPath: deploy.tar
 
                - name: Deploy App to CapRover
