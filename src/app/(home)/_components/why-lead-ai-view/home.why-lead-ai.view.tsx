@@ -24,23 +24,22 @@ export default function HomeWhyLeadAIView() {
                               </div>
                          </div>
                          <div className="home-why-ai-content-item">
-                              <p>Start with the question no one asks:</p>
                               <div className="home-why-ai-content-title">
-                                   What if your <span>AI model isn’t the problem?</span> What if
-                                   it’s <span>your data?</span>
+                                   Smarter AI, less hassle. Cut 80% of the work and still
+                                   outperform.
                               </div>
                               <p className="">
-                                   At Lead.AI, we believe the foundation of great AI starts long
-                                   before algorithms,  it starts with clean, trusted, high-integrity
-                                   data.
+                                   Behind every high-performing AI model is datasets that’s been
+                                   handled with precision. At Lead AI, we believe the foundation of
+                                   great AI starts long before algorithms,  it starts with clean,
+                                   trusted, high-integrity data.
                               </p>
                               <p>
-                                   Backed by a patented method developed at National University of
-                                   Singapore, our technology helps pharma and biotech teams clean
-                                   messy, fragmented datasets into AI-ready formats that models can
-                                   actually learn from. In a recent cancer AI case, our cleaned
-                                   datasets improved model accuracy by 17 percent, without touching
-                                   the model code.
+                                   Powered by a patented method from the National University of
+                                   Singapore, our platform transforms messy, fragmented bioactivity
+                                   data into formats AI can actually learn from. In a recent cancer
+                                   drug discovery study case, our proprietary data cleaning pipeline
+                                   boosted AI model accuracy by 21.6%.
                               </p>
                          </div>
                     </div>

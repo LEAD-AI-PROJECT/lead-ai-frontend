@@ -94,7 +94,7 @@
 
      // Laptop and up: horizontal flex with items in a row
      @media (min-width: 1024px) {
-          padding: 3.5rem 3.5rem;
+          padding: 3.5rem 6rem;
           gap: 2rem;
 
           .footer-body {
@@ -118,8 +118,8 @@
      }
 
      // Large desktop: more breathing room
-     @media (min-width: 1280px) {
-          padding: 4rem 6rem;
+     @media (min-width: 1440px) {
+          padding: 4rem 14rem;
 
           .footer-body {
                gap: 3rem;

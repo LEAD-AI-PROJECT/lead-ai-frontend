@@ -280,6 +280,7 @@
                padding: 8rem 12rem 0 8rem;
 
                .home-jumbotron-content-title {
+                    width: 80%;
                     font-size: 96px;
                     line-height: 1.02;
                }
@@ -314,8 +315,9 @@
 
           .home-why-ai-content-item {
                text-align: left;
-               display: block;
-               gap: 0.75rem;
+               display: flex;
+               flex-direction: column;
+               gap: 1rem;
                font-size: 16px;
 
                .home-why-ai-content-title {
@@ -436,6 +438,36 @@
                }
           }
      }
+
+     @media (min-width: 1440px) {
+          padding: 0rem 10rem;
+          gap: 4rem;
+
+          .home-why-ai-header {
+               font-size: 64px;
+          }
+
+          .home-why-ai-content {
+               grid-template-columns: repeat(2, 1fr);
+               gap: 4rem;
+
+               .home-why-ai-content-item {
+                    font-size: 20px;
+                    gap: 2rem;
+                    .home-why-ai-content-title {
+                         font-size: 40px;
+                    }
+               }
+          }
+
+          .home-why-ai-actions {
+               justify-content: flex-end;
+               .button-action {
+                    font-size: 32px;
+                    line-height: 40px;
+               }
+          }
+     }
 }
 
 .home-why-ai-card-content {
@@ -450,6 +482,7 @@
           position: relative;
           color: white;
           z-index: 1;
+          font-weight: 600;
      }
 
      .secondary-shadow {
@@ -647,6 +680,7 @@
 
           .title {
                font-size: 20px;
+               line-height: 50px;
                font-weight: 600;
           }
 
@@ -669,6 +703,7 @@
           padding: 0.75rem;
           .content .title {
                font-size: 18px;
+               line-height: 30px;
           }
           .content .description {
                font-size: 13px;
@@ -680,6 +715,7 @@
           padding: 0.9rem;
           .content .title {
                font-size: 19px;
+               line-height: 32px;
           }
           .content .description {
                font-size: 13.5px;
@@ -691,6 +727,7 @@
           padding: 1rem;
           .content .title {
                font-size: 22px;
+               line-height: 34px;
           }
           .content .description {
                font-size: 15px;
@@ -702,6 +739,7 @@
           padding: 1.25rem;
           .content .title {
                font-size: 26px;
+               line-height: 38px;
           }
           .content .description {
                font-size: 16px;
@@ -745,7 +783,7 @@
           .home-solution-content-item {
                display: flex;
                flex-direction: column;
-               justify-content: center;
+               // justify-content: center;
                gap: 1rem;
                padding: 4rem;
 
@@ -757,7 +795,7 @@
 
                .home-solution-content-subtitle {
                     font-size: 26px;
-                    font-weight: 400;
+                    font-weight: 600;
                     color: #{color($palette, white)};
                }
 
@@ -769,14 +807,14 @@
 
                .home-solution-content-action {
                     display: flex;
-                    justify-content: flex-start;
+                    justify-content: flex-end;
                     align-items: center;
                     width: 100%;
                }
           }
      }
      @media (min-width: 0) and (max-width: 374.98px) {
-          padding: 1rem 1rem;
+          padding: 1rem 0rem;
           .home-solution-content {
                grid-template-columns: 1fr;
 
@@ -797,7 +835,7 @@
 
      // small phones
      @media (min-width: 375px) and (max-width: 424.98px) {
-          padding: 1rem 1rem;
+          padding: 1rem 0rem;
           .home-solution-content {
                grid-template-columns: 1fr;
 
@@ -818,7 +856,7 @@
 
      // mobile large / small tablet
      @media (min-width: 425px) and (max-width: 767.98px) {
-          padding: 1rem 2rem;
+          padding: 1rem 0rem;
           .home-solution-content {
                grid-template-columns: 1fr;
 
@@ -839,7 +877,7 @@
 
      // tablet
      @media (min-width: 768px) and (max-width: 1023.98px) {
-          padding: 2rem 3rem;
+          padding: 2rem 0rem;
           .home-solution-content {
                grid-template-columns: repeat(1, 1fr);
 
@@ -861,7 +899,7 @@
 
      // laptop and up
      @media (min-width: 1024px) {
-          padding: 2rem 3rem;
+          padding: 2rem 0rem;
           .home-solution-content {
                grid-template-columns: repeat(2, 1fr);
 
@@ -883,7 +921,7 @@
 
      // large desktop
      @media (min-width: 1440px) {
-          padding: 2rem 3rem;
+          padding: 2rem 0rem;
           .home-solution-content {
                grid-template-columns: repeat(2, 1fr);
 
@@ -910,20 +948,42 @@
 .home-publication {
      // mobile-first defaults
      padding: 1rem 1rem;
+     background-color: white;
+     position: relative;
+
+     &::before {
+          content: "";
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          inset: 0;
+          // todo : make bg image blur
+          background-image: url("/assets/img/home/home.publication.bg.png");
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+          transform-origin: center;
+          pointer-events: none;
+          z-index: 0; /* sit behind content */
+     }
      .home-publication-title {
           font-size: 28px;
           font-weight: 600;
           text-align: center;
+          position: relative;
      }
      .home-publication-subtitle {
           font-size: 18px;
           color: #666666;
           text-align: center;
+          position: relative;
      }
 
      .home-publication-list {
           display: grid;
           grid-template-columns: 1fr;
+          position: relative;
+
           gap: 1rem;
           width: 100%;
      }
@@ -1318,7 +1378,7 @@
                max-width: 700px;
                .title {
                     font-size: 48px;
-                    font-weight: 200;
+                    font-weight: 400;
                     span {
                          font-weight: 600;
                          font-style: italic;
@@ -1328,7 +1388,7 @@
                .description {
                     color: white;
                     font-size: 24px;
-                    font-weight: 300;
+                    font-weight: 400;
                }
 
                .action {
@@ -1469,10 +1529,10 @@
                width: 100%;
                .content {
                     .title {
-                         font-size: 36px;
+                         font-size: 52px;
                     }
                     .description {
-                         font-size: 24px;
+                         font-size: 26px;
                     }
                }
           }

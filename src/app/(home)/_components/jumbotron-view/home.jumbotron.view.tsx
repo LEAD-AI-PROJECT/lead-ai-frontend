@@ -12,6 +12,7 @@ export default function HomeJumbotronView() {
                          </div>
                          <div className="home-jumbotron-content-description">
                               AI doesn't fail because of the model. It fails because of the data.
+                              <br />
                               Our <span>data cleaning services</span> solve what others ignore,
                               helping pharma and biotech teams build more accurate AI with data they
                               can trust.
