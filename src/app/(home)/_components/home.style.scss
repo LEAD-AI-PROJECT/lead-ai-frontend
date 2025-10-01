@@ -1482,18 +1482,20 @@
 .home-form {
      padding: 2rem;
      background: linear-gradient(to bottom left, #ee650f, #ff914d);
-     display: grid;
-     grid-template-columns: repeat(2, 1fr);
      border-radius: 30px;
-     gap: 2rem;
      color: white;
+
+     // Mobile-first layout
+     display: flex;
+     flex-direction: column;
+     gap: 1rem;
 
      .home-form-content {
           display: flex;
           flex-direction: column;
           justify-content: center;
           gap: 1rem;
-          max-width: 450px;
+          max-width: 100%;
 
           .home-form-content-title {
                font-size: 45px;
@@ -1528,6 +1530,102 @@
                font-size: 16px;
                font-weight: 200;
                color: #1b1b1b;
+          }
+     }
+
+     /* Responsive overrides for layout */
+     // mobile large / small tablet: introduce two-column grid for inputs but keep stacking for content
+
+     // very small phones
+     @media (min-width: 0) and (max-width: 374.98px) {
+          padding: 1rem;
+          .home-form-content {
+               .home-form-content-title {
+                    font-size: 24px;
+               }
+               .home-form-content-subtitle {
+                    font-size: 14px;
+               }
+               .home-form-input {
+                    padding: 0.75rem;
+               }
+          }
+     }
+
+     // small phones
+     @media (min-width: 375px) and (max-width: 424.98px) {
+          padding: 1rem 1rem;
+          .home-form-content {
+               .home-form-content-title {
+                    font-size: 28px;
+               }
+               .home-form-content-subtitle {
+                    font-size: 16px;
+               }
+               .home-form-input {
+                    padding: 0.75rem;
+               }
+          }
+     }
+
+     // mobile large / small tablet: introduce two-column grid for inputs but keep stacking for content
+     @media (min-width: 425px) and (max-width: 767.98px) {
+          padding: 1.5rem;
+          .home-form-content {
+               .home-form-content-title {
+                    font-size: 28px;
+               }
+               .home-form-content-subtitle {
+                    font-size: 16px;
+               }
+               .home-form-input {
+                    padding: 0.75rem;
+               }
+          }
+     }
+
+     // tablet: two-column layout where form content sits in left column and inputs in right column
+     @media (min-width: 768px) and (max-width: 1023.98px) {
+          .home-form-content {
+               .home-form-content-title {
+                    font-size: 32px;
+               }
+               .home-form-content-subtitle {
+                    font-size: 18px;
+               }
+               .home-form-input {
+                    padding: 0.75rem;
+               }
+          }
+     }
+
+     // laptop and up: keep two-column form but allow inputs to be arranged in two columns
+     @media (min-width: 1024px) {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 2rem;
+          padding: 2.5rem 3rem;
+
+          .home-form-content {
+               grid-column: 1 / 2;
+          }
+          .home-form-input {
+               grid-column: 2 / 3;
+          }
+          .home-form-input .grid {
+               grid-template-columns: repeat(2, 1fr);
+          }
+     }
+
+     // large desktop: increase padding and spacing
+     @media (min-width: 1440px) {
+          padding: 3rem 6rem;
+          gap: 3rem;
+          .home-form-content-title {
+               font-size: 36px;
+          }
+          .home-form-input {
+               padding: 1.5rem;
           }
      }
 }

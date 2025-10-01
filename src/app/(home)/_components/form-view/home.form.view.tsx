@@ -14,7 +14,10 @@ export default function HomeFormView() {
      const [subject, setSubject] = useState("general");
 
      return (
-          <div id="company" className="py-[3rem] px-[8rem] bg-white">
+          <div
+               id="company"
+               className="lg:py-[3rem] md:py-[2rem] sm:py-[1rem] py-[10px] lg:px-[8rem] md:px-[2rem] sm:px-[1rem] px-[10px] bg-white"
+          >
                <div className="home-form">
                     <div className="home-form-content">
                          <div className="home-form-content-title">Free Data Cleaning Trial</div>
@@ -90,7 +93,7 @@ export default function HomeFormView() {
                               secure your spot, trials are limited and handled first come, first
                               served!
                          </div>
-                         <div className="grid grid-cols-2 gap-4 mt-10">
+                         <div className="grid lg:md:grid-cols-2 gap-4 mt-10">
                               <CustomInput label="First Name" placeholder="" required />
                               <CustomInput label="Last Name" placeholder="" required />
                               <CustomInput label="Work Email" placeholder="" required />
@@ -102,18 +105,18 @@ export default function HomeFormView() {
                                    startAdornment={"+65"}
                               />
                               <SubjectSelect
-                                   className="col-span-2"
+                                   className="lg:md:col-span-2"
                                    options={subjects}
                                    value={subject}
                                    onChange={setSubject}
                               />
                               <CustomInput
-                                   className="col-span-2"
+                                   className="lg:md:col-span-2"
                                    label="Message"
                                    placeholder=""
                                    required
                               />
-                              <div className="w-full col-span-2 flex justify-end mt-10">
+                              <div className="w-full lg:md:col-span-2 flex justify-end mt-10">
                                    <button className="primary">
                                         <div className="text-xl text-white">Send Message</div>
                                    </button>

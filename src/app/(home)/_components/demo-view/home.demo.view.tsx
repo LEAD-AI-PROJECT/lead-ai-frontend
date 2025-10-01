@@ -2,7 +2,7 @@ import "../home.style.scss";
 
 export default function HomeDemoView() {
      return (
-          <div className="lg:py-[3rem] md:py-[2rem] sm:py-[1rem] py-[10px] lg:px-[8rem] md:px-[2rem] sm:px-[1rem] px-[2rem] bg-white">
+          <div className="lg:py-[3rem] md:py-[2rem] sm:py-[1rem] py-[10px] lg:px-[8rem] md:px-[2rem] sm:px-[1rem] px-[10px] bg-white">
                <div className="home-demo">
                     <div className="home-demo-content">
                          <div className="content">
