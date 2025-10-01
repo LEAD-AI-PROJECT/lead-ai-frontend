@@ -13,7 +13,7 @@ export default function Home() {
                <HomeServicesView />
                <HomeSolutionView />
                <HomePublicationView />
-               {/* <HomeNewsEventView /> */}
+               <HomeNewsEventView />
                {/* <HomeDemoView /> */}
                {/* <HomeFormView /> */}
           </main>

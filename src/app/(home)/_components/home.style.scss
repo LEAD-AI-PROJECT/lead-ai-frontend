@@ -1130,6 +1130,7 @@
      /* desktop-first duplicate removed; responsive .home-publication-card rules above are kept */
 }
 .home-news-event {
+     // Mobile-first: stack title and actions vertically
      .content {
           display: flex;
           justify-content: space-between;
@@ -1137,10 +1138,11 @@
           padding: 4rem 8rem;
           gap: 2rem;
           .home-news-event-title {
-               font-size: 64px;
-               font-weight: 100;
+               font-size: 28px;
+               font-weight: 600;
                color: #{color($palette, foreground)};
                width: 100%;
+               text-align: left;
           }
 
           .home-news-event-action {
@@ -1165,6 +1167,76 @@
                          cursor: not-allowed;
                     }
                }
+          }
+     }
+
+     // very small phones
+     @media (min-width: 0) and (max-width: 374.98px) {
+          .content {
+               padding: 0.75rem 0.75rem;
+               display: flex;
+               flex-direction: column;
+               align-items: center;
+          }
+          .home-news-event-title {
+               font-size: 22px;
+          }
+     }
+
+     // small phones
+     @media (min-width: 375px) and (max-width: 424.98px) {
+          .content {
+               padding: 0.9rem 1rem;
+               display: flex;
+               flex-direction: column;
+               align-items: center;
+          }
+          .home-news-event-title {
+               font-size: 24px;
+          }
+     }
+
+     // mobile large / small tablet: place title and actions side-by-side
+     @media (min-width: 425px) and (max-width: 767.98px) {
+          .content {
+               flex-direction: row;
+               align-items: center;
+               justify-content: space-between;
+               padding: 1rem 1.25rem;
+               gap: 1rem;
+          }
+          .home-news-event-title {
+               font-size: 32px;
+          }
+     }
+
+     // tablet
+     @media (min-width: 768px) and (max-width: 1023.98px) {
+          .content {
+               padding: 1.5rem 2rem;
+          }
+          .home-news-event-title {
+               font-size: 40px;
+          }
+     }
+
+     // laptop and up
+     @media (min-width: 1024px) {
+          .content {
+               padding: 2.5rem 4rem;
+          }
+          .home-news-event-title {
+               font-size: 56px;
+          }
+     }
+
+     // large desktop
+     @media (min-width: 1440px) {
+          .content {
+               padding: 4rem 8rem;
+          }
+          .home-news-event-title {
+               font-size: 64px;
           }
      }
 }
