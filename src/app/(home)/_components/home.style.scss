@@ -1339,6 +1339,144 @@
                }
           }
      }
+
+     // very small phones
+     @media (min-width: 0) and (max-width: 374.98px) {
+          padding: 1rem;
+          min-height: 420px;
+          .home-demo-content {
+               gap: 0.75rem;
+               height: 100%;
+               flex-direction: column;
+               align-items: stretch;
+               width: 100%;
+               .content {
+                    .title {
+                         font-size: 24px;
+                    }
+                    .description {
+                         font-size: 14px;
+                    }
+
+                    .action {
+                         flex-direction: column;
+                         align-items: center;
+                         justify-content: stretch;
+                    }
+               }
+          }
+     }
+
+     // small phones
+     @media (min-width: 375px) and (max-width: 424.98px) {
+          padding: 1rem;
+          min-height: 460px;
+          .home-demo-content {
+               gap: 0.75rem;
+               height: 100%;
+               flex-direction: column;
+               align-items: stretch;
+               width: 100%;
+               .content {
+                    .title {
+                         font-size: 26px;
+                    }
+                    .description {
+                         font-size: 16px;
+                    }
+
+                    .action {
+                         flex-direction: column;
+                         align-items: center;
+                         justify-content: stretch;
+                    }
+               }
+          }
+     }
+
+     // mobile large / small tablet
+     @media (min-width: 425px) and (max-width: 767.98px) {
+          padding: 1.5rem;
+          min-height: 520px;
+          .home-demo-content {
+               gap: 0.75rem;
+               height: 100%;
+               flex-direction: column;
+               align-items: stretch;
+               width: 100%;
+               .content {
+                    .title {
+                         font-size: 28px;
+                    }
+                    .description {
+                         font-size: 18px;
+                    }
+
+                    .action {
+                         flex-direction: column;
+                         align-items: center;
+                         justify-content: stretch;
+                    }
+               }
+          }
+     }
+
+     // tablet
+     @media (min-width: 768px) and (max-width: 1023.98px) {
+          padding: 2rem;
+          min-height: 560px;
+          .home-demo-content {
+               gap: 0.75rem;
+               height: 100%;
+               flex-direction: column;
+               width: 100%;
+               .content {
+                    .title {
+                         font-size: 30px;
+                    }
+                    .description {
+                         font-size: 20px;
+                    }
+
+                    .action {
+                         flex-direction: column;
+                         align-items: flex-end;
+                         justify-content: center;
+                    }
+               }
+          }
+     }
+
+     // laptop and up
+     @media (min-width: 1024px) {
+          padding: 2.5rem;
+          min-height: 600px;
+          .home-demo-content {
+               flex-direction: column;
+          }
+     }
+
+     // large desktop
+     @media (min-width: 1440px) {
+          padding: 3rem;
+          min-height: 700px;
+          .home-demo-content {
+               gap: 0.75rem;
+               height: 100%;
+               display: flex;
+               flex-direction: row;
+               justify-content: space-between;
+               width: 100%;
+               .content {
+                    .title {
+                         font-size: 36px;
+                    }
+                    .description {
+                         font-size: 24px;
+                    }
+               }
+          }
+     }
 }
 
 .home-form {
