@@ -1,4 +1,5 @@
 import HomeJumbotronView from "./_components/jumbotron-view/home.jumbotron.view";
+import HomeNewsEventView from "./_components/news-event-view/home.news.event.view";
 import HomePublicationView from "./_components/publication-view/home.publication.view";
 import HomeServicesView from "./_components/services-view/home.services.view";
 import HomeSolutionView from "./_components/solution-view/home.solution.view";
