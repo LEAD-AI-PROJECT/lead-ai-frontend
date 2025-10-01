@@ -1,15 +1,7 @@
 import FooterView from "@/components/footer/footer.view";
 import NavbarView from "@/components/navbar/Navbar.view";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.scss";
-
-// const inter = Inter({
-//      variable: "--font-inter",
-//      // subsets: ["latin"],
-//      // weight: ["100"],
-//      display: "swap",
-// });
 
 export const metadata: Metadata = {
      title: "Lead AI",

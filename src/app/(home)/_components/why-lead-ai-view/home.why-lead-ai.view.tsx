@@ -1,13 +1,13 @@
 import "../home.style.scss";
 export default function HomeWhyLeadAIView() {
      return (
-          <div className="p-[3rem]">
+          <div className="lg:p-[3rem] md:p-[2rem] sm:p-[1rem] p-[10px]">
                <div className="home-why-ai">
                     <div className="home-why-ai-header">Why Lead.AI?</div>
                     <div className="home-why-ai-content">
                          <div className="home-why-ai-content-item">
-                              <div className="grid grid-cols-2 gap-8 h-full">
-                                   <div className="grid gap-8">
+                              <div className="grid lg:md:grid-cols-2 gap-1 sm:gap-2 md:gap-4 lg:gap-8 h-full">
+                                   <div className="grid gap-1 sm:gap-2 md:gap-4 lg:gap-8">
                                         <div className="home-why-ai-card-content v1">
                                              <div className="secondary-shadow"></div>
                                              <div className="text">Stronger Data Foundations</div>

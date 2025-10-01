@@ -10,7 +10,7 @@ export default function HomePublicationView() {
                     reflects our commitment to advancing AI in pharma through rigorous science,
                     validated methods, and real-world impact.
                </div>
-               <div className="grid grid-cols-3 gap-8 w-full mt-10">
+               <div className="home-publication-list mt-10">
                     {homePublicationItems.map((item, index) => (
                          <HomePublicationCardView key={item.link + index} {...item} />
                     ))}

@@ -11,6 +11,11 @@
      --font-sans: var(--font-inter, var(--font-geist-sans));
      --font-mono: var(--font-geist-mono);
 
+     // responsive UI tokens (defaults - mobile-first)
+     --btn-font-size: 14px;
+     --btn-padding: 0.5rem 1rem;
+     --jumbotron-logo-width: 40px;
+
      // palette variables
      @each $k, $v in $palette {
           --#{"#{$k}"}: #{$v};
@@ -24,9 +29,7 @@ body {
      flex-direction: column;
      justify-content: center;
      align-items: center;
-     // width: 100vw !important;
      max-width: 100vw !important;
-     // overflow-x: hidden;
 
      .body-item {
           min-height: 320px;
@@ -35,6 +38,47 @@ body {
                display: grid;
                grid-template-columns: 1fr;
           }
+     }
+}
+
+/* Responsive overrides following navbar breakpoints */
+@media (min-width: 375px) {
+     :root {
+          --btn-font-size: 15px;
+          --btn-padding: 0.55rem 1.05rem;
+          --jumbotron-logo-width: 44px;
+     }
+}
+
+@media (min-width: 425px) {
+     :root {
+          --btn-font-size: 15.5px;
+          --btn-padding: 0.56rem 1.1rem;
+          --jumbotron-logo-width: 46px;
+     }
+}
+
+@media (min-width: 768px) {
+     :root {
+          --btn-font-size: 16px;
+          --btn-padding: 0.6rem 1.2rem;
+          --jumbotron-logo-width: 56px;
+     }
+}
+
+@media (min-width: 1024px) {
+     :root {
+          --btn-font-size: 17px;
+          --btn-padding: 0.7rem 1.4rem;
+          --jumbotron-logo-width: 72px;
+     }
+}
+
+@media (min-width: 1280px) {
+     :root {
+          --btn-font-size: 18px;
+          --btn-padding: 0.8rem 1.6rem;
+          --jumbotron-logo-width: 88px;
      }
 }
 

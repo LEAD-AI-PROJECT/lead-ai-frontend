@@ -3,7 +3,7 @@ import { ServiceItemProps } from "./home.services.item";
 import arrowRight from "@public/assets/icon/arrow-right.svg";
 import Image from "next/image";
 
-export default function HomeServiceCard({ item }: { item: ServiceItemProps }) {
+export default function HomeServiceCard({ item }: Readonly<{ item: ServiceItemProps }>) {
      return (
           <div className={`home-service-card ${item.class}`}>
                <div className="content">
