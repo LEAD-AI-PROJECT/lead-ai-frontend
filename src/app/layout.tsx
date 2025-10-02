@@ -2,6 +2,7 @@ import FooterView from "@/components/footer/footer.view";
 import NavbarView from "@/components/navbar/Navbar.view";
 import type { Metadata } from "next";
 import "./globals.scss";
+import { RootProvider } from "@/components/root-provider/root-provider";
 
 export const metadata: Metadata = {
      title: "Lead AI",
@@ -16,9 +17,9 @@ export default function RootLayout({
      return (
           <html lang="en">
                <body>
-                    <NavbarView />
-                    <div className="body-item">{children}</div>
-                    <FooterView />
+                    <RootProvider>
+                         <div className="body-item">{children}</div>
+                    </RootProvider>
                </body>
           </html>
      );

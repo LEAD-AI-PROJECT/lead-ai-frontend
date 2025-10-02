@@ -1134,6 +1134,11 @@ csstype@^3.0.2:
   resolved "https://registry.npmjs.org/csstype/-/csstype-3.1.3.tgz#d80ff294d114fb0e6ac500fbf85b60137d7eff81"
   integrity sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==
 
+daisyui@^5.1.26:
+  version "5.1.26"
+  resolved "https://registry.npmjs.org/daisyui/-/daisyui-5.1.26.tgz#6215604ab0364838dbddb840398e15370ed5f776"
+  integrity sha512-keoOGnZ7aLHWlUBUfyCj7tIGkXXTFAO4U6BFBMBSSyGYHY6aP+onIuBQNTwRD09g3yg5aNLxvIY3pNS8bwPUgQ==
+
 damerau-levenshtein@^1.0.8:
   version "1.0.8"
   resolved "https://registry.npmjs.org/damerau-levenshtein/-/damerau-levenshtein-1.0.8.tgz#b43d286ccbd36bc5b2f7ed41caf2d0aba1f8a6e7"

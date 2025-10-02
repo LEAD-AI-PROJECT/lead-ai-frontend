@@ -1,6 +1,7 @@
 @use "../styles/colors" as *;
 
 @import "tailwindcss";
+@plugin "daisyui";
 
 /* Emit CSS custom properties for light theme */
 :root {
@@ -28,11 +29,10 @@ body {
      display: flex;
      flex-direction: column;
      justify-content: center;
-     align-items: center;
      max-width: 100vw !important;
 
      .body-item {
-          min-height: 320px;
+          min-height: 100vh;
 
           main {
                display: grid;

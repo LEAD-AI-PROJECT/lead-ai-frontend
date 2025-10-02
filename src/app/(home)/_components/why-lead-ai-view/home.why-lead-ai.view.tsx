@@ -36,7 +36,7 @@ export default function HomeWhyLeadAIView() {
                               </p>
                               <p>
                                    Powered by a patented method from the National University of
-                                   Singapore, our platform transforms messy, fragmented bioactivity
+                                   Singapore, our pipeline transforms messy, fragmented bioactivity
                                    data into formats AI can actually learn from. In a recent cancer
                                    drug discovery study case, our proprietary data cleaning pipeline
                                    boosted AI model accuracy by 21.6%.

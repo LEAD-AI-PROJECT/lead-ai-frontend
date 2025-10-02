@@ -8,10 +8,10 @@ import Image from "next/image";
 export default function FooterView() {
      const { footerItem } = useFooterHook();
      return (
-          <div className="footer">
-               <div className="footer-body">
+          <div className="footerr">
+               <div className="footerr-body">
                     {footerItem.map(item => (
-                         <div key={item.label} className="footer-item">
+                         <div key={item.label} className="footerr-item">
                               <div className="title">{item.label}</div>
                               <div className="sub">
                                    {item.children?.map(child => (
@@ -22,7 +22,7 @@ export default function FooterView() {
                               </div>
                          </div>
                     ))}
-                    <div className="footer-item">
+                    <div className="footerr-item">
                          <div className="title">Get In Touch</div>
                          <div className="sub">
                               You’ll find your next home, in any style you prefer.
@@ -50,7 +50,7 @@ export default function FooterView() {
                          </div>
                     </div>
                </div>
-               <div className="footer-copyright">Copyright 2020, All rights reserved.</div>
+               <div className="footerr-copyright">Copyright 2020, All rights reserved.</div>
           </div>
      );
 }

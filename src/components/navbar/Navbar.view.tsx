@@ -13,8 +13,8 @@ export default function NavbarView() {
 
      return (
           <>
-               <div ref={navRef} className="navbar">
-                    <div className="navbar-item logo">
+               <div ref={navRef} className="navbarr">
+                    <div className="navbarr-item logo">
                          <button
                               type="button"
                               aria-label="Toggle menu"
@@ -29,11 +29,11 @@ export default function NavbarView() {
                          <Image src={logo} width={200} alt="logo" />
                     </div>
 
-                    <div className="navbar-item link">
+                    <div className="navbarr-item links">
                          {navbarItem.map(item => (
                               <Link
                                    key={item.label}
-                                   className="navbar-link"
+                                   className="navbarr-link"
                                    href={item.href}
                                    onClick={e => {
                                         handleAnchorClick(e.nativeEvent, String(item.href));
@@ -45,10 +45,10 @@ export default function NavbarView() {
                          ))}
                     </div>
 
-                    <div className="navbar-item action">
+                    <div className="navbarr-item action">
                          <Link
                               href="#login"
-                              className="navbar-link"
+                              className="navbarr-link"
                               onClick={e => {
                                    handleAnchorClick(e.nativeEvent, "#login");
                                    close();
@@ -71,12 +71,12 @@ export default function NavbarView() {
                     aria-label="Close navigation overlay"
                />
 
-               {/* Dropdown “di belakang” navbar */}
+               {/* Dropdown “di belakang” navbarr */}
                <div className={`nav-dropdown ${open ? "active" : ""}`} role="menu">
                     {navbarItem.map(item => (
                          <Link
                               key={`dd-${item.label}`}
-                              className="navbar-link"
+                              className="navbarr-link"
                               href={item.href}
                               onClick={e => {
                                    handleAnchorClick(e.nativeEvent, String(item.href));
@@ -92,7 +92,7 @@ export default function NavbarView() {
                     <div className="dropdown-actions">
                          <Link
                               href="#login"
-                              className="navbar-link"
+                              className="navbarr-link"
                               onClick={e => {
                                    handleAnchorClick(e.nativeEvent, "#login");
                                    close();
