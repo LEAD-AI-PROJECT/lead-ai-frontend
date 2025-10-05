@@ -1,6 +1,6 @@
 @use "../../styles/colors" as *;
 
-.navbar {
+.navbarr {
      background-color: #{color($palette, white)};
      color: #4f4f4f;
      width: 100% !important;
@@ -15,7 +15,7 @@
      z-index: 9999;
 
      /* CSS vars (bisa diisi dari JS kalau perlu) */
-     --navbar-h: 80px;
+     --navbarr-h: 80px;
      --nav-left: 0px;
      --nav-right: 0px;
 
@@ -53,7 +53,7 @@
           gap: 0.5rem;
      }
 
-     .navbar-item {
+     .navbarr-item {
           display: flex;
           align-items: center;
           gap: 2rem;
@@ -68,7 +68,7 @@
           &.action {
                justify-content: flex-end;
           }
-          &.link {
+          &.links {
                justify-content: center;
           }
 
@@ -80,7 +80,7 @@
                     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
                     aspect-ratio: 1/1;
                }
-               &.link {
+               &.links {
                     display: none;
                }
           }
@@ -90,12 +90,12 @@
                     display: flex;
                     justify-content: space-between;
                }
-               &.link {
+               &.links {
                     display: none;
                }
           }
 
-          .navbar-link {
+          .navbarr-link {
                text-decoration: none;
                color: inherit;
                font-weight: 400;
@@ -124,14 +124,14 @@
      display: block;
 }
 
-/* ===== Dropdown full-bleed tepat di bawah navbar ===== */
+/* ===== Dropdown full-bleed tepat di bawah navbarr ===== */
 .nav-dropdown {
      display: none;
      position: fixed;
-     top: var(--navbar-h, 80px);
+     top: var(--navbarr-h, 80px);
      left: calc(var(--nav-left, 0px) * -1);
      right: calc(var(--nav-right, 0px) * -1);
-     z-index: 8888; /* < navbar biar “di belakang” */
+     z-index: 8888; /* < navbarr biar “di belakang” */
      background: #{color($palette, white)};
      border-bottom: 1px solid var(--muted);
      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
@@ -141,7 +141,7 @@
      pointer-events: none;
      transition: transform 0.2s ease, opacity 0.2s ease;
 
-     .navbar-link {
+     .navbarr-link {
           display: block;
           padding: 0.5rem 0.25rem;
           font-size: 16px;
@@ -168,8 +168,8 @@
 
 /* ≤767.98px (Mobile S/M/L): pindahin action ke bawah dropdown */
 @media (max-width: 767.98px) {
-     /* hide action bar di top navbar */
-     .navbar .navbar-item.action {
+     /* hide action bar di top navbarr */
+     .navbarr .navbarr-item.action {
           display: none !important;
      }
 
@@ -183,7 +183,7 @@
           border-top: 1px solid var(--muted);
      }
 
-     .nav-dropdown .dropdown-actions .navbar-link {
+     .nav-dropdown .dropdown-actions .navbarr-link {
           display: block;
           text-align: center;
           padding: 0.6rem 0.75rem;

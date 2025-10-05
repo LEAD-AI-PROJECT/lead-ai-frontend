@@ -2,7 +2,8 @@
 import { useAdminLoginForm } from "./admin.login.form.hook";
 
 export default function AdminLoginFormView() {
-     const { email, error, handleSubmit, password, setEmail, setPassword } = useAdminLoginForm();
+     const { email, error, handleSubmit, password, setEmail, setPassword, router } =
+          useAdminLoginForm();
 
      return (
           <div className="min-h-[60vh] flex items-center justify-center p-4 lg:w-1/2 md:w-3/4 sm:w-full">
@@ -71,7 +72,11 @@ export default function AdminLoginFormView() {
                               </div>
 
                               <div className="pt-4">
-                                   <button type="submit" className="btn btn-primary w-full">
+                                   <button
+                                        onClick={() => router.push("/admin")}
+                                        type="submit"
+                                        className="btn btn-primary w-full"
+                                   >
                                         Sign in
                                    </button>
                               </div>

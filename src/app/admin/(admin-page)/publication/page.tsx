@@ -1,3 +1,5 @@
+import AdminPublicationView from "./admin.publication.view";
+
 export default function page() {
-     return <div>Admin Publication Page</div>;
+     return <AdminPublicationView />;
 }

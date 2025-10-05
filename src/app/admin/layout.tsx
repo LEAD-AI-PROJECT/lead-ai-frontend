@@ -1,3 +1,5 @@
+"use client";
+import { usePathname } from "next/navigation";
 import AdminSidebar from "./_components/sidebar/admin.sidebar";
 
 export default function RootLayout({
@@ -5,10 +7,17 @@ export default function RootLayout({
 }: Readonly<{
      children: React.ReactNode;
 }>) {
-     return (
-          <>
-               <AdminSidebar />
-               {children}
-          </>
-     );
+     const pathname = usePathname();
+
+     if (pathname == "/admin/login" || pathname == "/admin/register") {
+          return <>{children}</>;
+     } else {
+          return (
+               <div className="flex w-full ">
+                    <AdminSidebar>
+                         <div className="flex flex-col">{children}</div>
+                    </AdminSidebar>
+               </div>
+          );
+     }
 }

@@ -1,7 +1,7 @@
 @use "../../styles/colors" as *;
 
-// Footer - mobile-first responsive
-.footer {
+// Footerr - mobile-first responsive
+.footerr {
      background: linear-gradient(
           to right,
           #{color($palette, primary)},
@@ -15,12 +15,12 @@
      gap: 1.25rem;
 
      // Body: stack on mobile
-     .footer-body {
+     .footerr-body {
           display: grid;
           grid-template-columns: 1fr;
           gap: 1.25rem;
 
-          .footer-item {
+          .footerr-item {
                display: flex;
                flex-direction: column;
                gap: 0.75rem;
@@ -66,27 +66,27 @@
           }
      }
 
-     .footer-copyright {
+     .footerr-copyright {
           text-align: center;
           margin-top: 0.5rem;
           font-size: 0.8125rem;
           color: rgba(255, 255, 255, 0.9);
      }
 
-     // Tablet: two-column grid for footer body
+     // Tablet: two-column grid for footerr body
      @media (min-width: 768px) {
           padding: 3rem 2rem;
 
-          .footer-body {
+          .footerr-body {
                grid-template-columns: repeat(2, 1fr);
                gap: 2rem;
 
-               .footer-item {
+               .footerr-item {
                     max-width: 28rem;
                }
           }
 
-          .footer-copyright {
+          .footerr-copyright {
                text-align: left;
                margin-top: 1rem;
           }
@@ -97,7 +97,7 @@
           padding: 3.5rem 6rem;
           gap: 2rem;
 
-          .footer-body {
+          .footerr-body {
                display: flex;
                flex-direction: row;
                align-items: flex-start;
@@ -105,12 +105,12 @@
                gap: 2.5rem;
           }
 
-          .footer-item {
+          .footerr-item {
                flex: 1 1 0;
                max-width: none;
           }
 
-          .footer-copyright {
+          .footerr-copyright {
                text-align: right;
                margin-top: 2rem;
                font-size: 0.875rem;
@@ -121,7 +121,7 @@
      @media (min-width: 1440px) {
           padding: 4rem 14rem;
 
-          .footer-body {
+          .footerr-body {
                gap: 3rem;
           }
      }

@@ -1,3 +1,5 @@
+import AdminNewsEventView from "./admin.news.event.view";
+
 export default function page() {
-     return <div>Admin News & Event Page</div>;
+     return <AdminNewsEventView />;
 }
