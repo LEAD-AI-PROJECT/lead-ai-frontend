@@ -22,9 +22,9 @@ export default function HomeFormView() {
                     <div className="home-form-content">
                          <div className="home-form-content-title">Free Data Cleaning Trial</div>
                          <div className="home-form-content-subtitle">
-                              Curious how Lead AI improves accuracy with clean data? Upload a small
+                              {/* Curious how Lead AI improves accuracy with clean data? Upload a small
                               sample dataset and our team will process it for free. You’ll get back
-                              a cleaned, structured version ready for AI training
+                              a cleaned, structured version ready for AI training */}
                          </div>
                          <div className="home-form-content-info">
                               <div className="">Contact Info</div>
