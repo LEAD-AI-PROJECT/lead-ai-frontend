@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
           config.resolve.alias = {
                ...(config.resolve.alias || {}),
                "@public": path.resolve(__dirname, "public"),
+               "@types": path.resolve(__dirname, "src/types"),
           };
           return config;
      },
