@@ -17,7 +17,7 @@ export default function Home() {
                <HomePublicationView />
                <HomeNewsEventView />
                <HomeDemoView />
-               <HomeFormView />
+               {/* <HomeFormView /> */}
           </main>
      );
 }

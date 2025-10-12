@@ -1363,7 +1363,7 @@
      overflow: hidden;
      position: relative;
      color: white;
-     min-height: 600px;
+     // min-height: 600px;
 
      &::before {
           content: "";
@@ -1518,23 +1518,25 @@
 
      // laptop and up
      @media (min-width: 1024px) {
-          padding: 2.5rem;
+          padding: 1.5rem;
           min-height: 600px;
+          width: 100%;
           .home-demo-content {
-               flex-direction: column;
+               display: grid;
+               grid-template-columns: repeat(1, 2fr);
           }
      }
 
      // large desktop
      @media (min-width: 1440px) {
           padding: 3rem;
-          min-height: 700px;
+          height: fit-content;
+          min-height: 100px;
           .home-demo-content {
                gap: 0.75rem;
                height: 100%;
-               display: flex;
-               flex-direction: row;
-               justify-content: space-between;
+               display: grid;
+               grid-template-columns: repeat(2, 1fr);
                width: 100%;
                .content {
                     .title {
@@ -1584,24 +1586,6 @@
           }
      }
 
-     .home-form-input {
-          background-color: white;
-          color: #000000;
-          border-radius: 20px;
-          padding: 1rem;
-
-          .home-form-input-title {
-               font-size: 28px;
-               font-weight: 600;
-               color: #1b1b1b;
-          }
-          .home-form-input-subtitle {
-               font-size: 16px;
-               font-weight: 200;
-               color: #1b1b1b;
-          }
-     }
-
      /* Responsive overrides for layout */
      // mobile large / small tablet: introduce two-column grid for inputs but keep stacking for content
 
@@ -1614,9 +1598,6 @@
                }
                .home-form-content-subtitle {
                     font-size: 14px;
-               }
-               .home-form-input {
-                    padding: 0.75rem;
                }
           }
      }
@@ -1631,9 +1612,6 @@
                .home-form-content-subtitle {
                     font-size: 16px;
                }
-               .home-form-input {
-                    padding: 0.75rem;
-               }
           }
      }
 
@@ -1647,9 +1625,6 @@
                .home-form-content-subtitle {
                     font-size: 16px;
                }
-               .home-form-input {
-                    padding: 0.75rem;
-               }
           }
      }
 
@@ -1661,9 +1636,6 @@
                }
                .home-form-content-subtitle {
                     font-size: 18px;
-               }
-               .home-form-input {
-                    padding: 0.75rem;
                }
           }
      }
@@ -1681,9 +1653,6 @@
           .home-form-input {
                grid-column: 2 / 3;
           }
-          .home-form-input .grid {
-               grid-template-columns: repeat(2, 1fr);
-          }
      }
 
      // large desktop: increase padding and spacing
@@ -1693,6 +1662,64 @@
           .home-form-content-title {
                font-size: 36px;
           }
+     }
+}
+
+.home-form-input {
+     background-color: rgba(255, 255, 255, 0.845);
+     color: #000000;
+     border-radius: 20px;
+     padding: 1rem;
+
+     .home-form-input-title {
+          font-size: 28px;
+          font-weight: 600;
+          color: #1b1b1b;
+     }
+     .home-form-input-subtitle {
+          font-size: 16px;
+          font-weight: 200;
+          color: #1b1b1b;
+     }
+     @media (min-width: 0) and (max-width: 374.98px) {
+          padding: 1rem;
+
+          .home-form-input {
+               padding: 0.75rem;
+          }
+     }
+
+     // small phones
+     @media (min-width: 375px) and (max-width: 424.98px) {
+          padding: 1rem 1rem;
+          .home-form-input {
+               padding: 0.75rem;
+          }
+     }
+
+     // mobile large / small tablet: introduce two-column grid for inputs but keep stacking for content
+     @media (min-width: 425px) and (max-width: 767.98px) {
+          .home-form-input {
+               padding: 0.75rem;
+          }
+     }
+
+     // tablet: two-column layout where form content sits in left column and inputs in right column
+     @media (min-width: 768px) and (max-width: 1023.98px) {
+          .home-form-input {
+               padding: 0.75rem;
+          }
+     }
+
+     // laptop and up: keep two-column form but allow inputs to be arranged in two columns
+     @media (min-width: 1024px) {
+          .home-form-input .grid {
+               grid-template-columns: repeat(2, 1fr);
+          }
+     }
+
+     // large desktop: increase padding and spacing
+     @media (min-width: 1440px) {
           .home-form-input {
                padding: 1.5rem;
           }

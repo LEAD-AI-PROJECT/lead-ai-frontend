@@ -1,3 +1,4 @@
+import HomeFormSectionView from "../form-view/form/home.form.sectiion.view";
 import "../home.style.scss";
 
 export default function HomeDemoView() {
@@ -17,14 +18,15 @@ export default function HomeDemoView() {
                               </div>
                          </div>
                          <div className="content">
-                              <div className="action">
+                              {/* <div className="action">
                                    <button className="secondary">
                                         <div className="text-xl">Get a Free Demo</div>
                                    </button>
                                    <button className="dark">
                                         <div className="text-xl">More Info</div>
                                    </button>
-                              </div>
+                              </div> */}
+                              <HomeFormSectionView />
                          </div>
                     </div>
                </div>
