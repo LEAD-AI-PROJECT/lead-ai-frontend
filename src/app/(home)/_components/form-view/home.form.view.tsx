@@ -104,12 +104,12 @@ export default function HomeFormView() {
                                    required
                                    startAdornment={"+65"}
                               />
-                              <SubjectSelect
+                              {/* <SubjectSelect
                                    className="lg:md:col-span-2"
                                    options={subjects}
                                    value={subject}
                                    onChange={setSubject}
-                              />
+                              /> */}
                               <CustomInput
                                    className="lg:md:col-span-2"
                                    label="Message"

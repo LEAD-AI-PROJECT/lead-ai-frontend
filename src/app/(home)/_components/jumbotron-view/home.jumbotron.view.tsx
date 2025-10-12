@@ -11,10 +11,10 @@ export default function HomeJumbotronView() {
                               Data Cleaning Services Built for <span>AI Accuracy</span>
                          </div>
                          <div className="home-jumbotron-content-description">
-                              AI doesn't fail because of the model. It fails because of the data.
-                              Our <span>data cleaning services</span> solve what others ignore,
-                              helping pharma and biotech teams build more accurate AI with data they
-                              can trust.
+                              AI doesn’t just fail because of poor algorithms, it fails because of
+                              messy and unreliable data. Our <span>data cleaning services</span>{" "}
+                              solve what others ignore, helping pharma and biotech teams build more
+                              accurate AI with data they can trust.
                          </div>
                     </div>
                     <div className="home-jumbotron-actions">

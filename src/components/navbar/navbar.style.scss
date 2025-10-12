@@ -105,6 +105,12 @@
                &:hover {
                     color: #{color($palette, primary)};
                }
+
+               &.active {
+                    /* same visual treatment as hover */
+                    color: #{color($palette, primary)};
+                    font-weight: 600;
+               }
           }
      }
 }
