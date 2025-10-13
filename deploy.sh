@@ -270,12 +270,22 @@ obtain_tls() {
   }
 }
 
+# --- Cleanup old releases (keep last 2)
+cleanup_old_releases() {
+  log "Cleaning up old releases, keeping only 2 most recent..."
+  cd "${RELEASES_DIR}" || return
+  ls -1t | tail -n +3 | xargs -r rm -rf || true
+}
+
+# Add cleanup call inside post_deploy
 post_deploy() {
   log "Post-deploy checks"
   su - "${APP_USER}" -c "pm2 status ${PM2_APP_NAME}" || true
   curl -fsS "http://127.0.0.1:${PORT}" >/dev/null && log "App responded on ${PORT}."
-  log "If the site does not load at https://${DOMAIN}, check:\n  - DNS A record\n  - pm2 logs ${PM2_APP_NAME}\n  - nginx -t && systemctl reload nginx"
+  cleanup_old_releases
+  log "If the site does not load at https://${DOMAIN}, check:\\n  - DNS A record\\n  - pm2 logs ${PM2_APP_NAME}\\n  - nginx -t && systemctl reload nginx"
 }
+
 
 # ---------------------------
 # MAIN
@@ -298,23 +308,9 @@ pm2_start_enable
 
 write_nginx_site
 obtain_tls
+cleanup_old_releases
 post_deploy
 
-# --- Cleanup old releases (keep last 2)
-cleanup_old_releases() {
-  log "Cleaning up old releases, keeping only 2 most recent..."
-  cd "${RELEASES_DIR}" || return
-  ls -1t | tail -n +3 | xargs -r rm -rf || true
-}
-
-# Add cleanup call inside post_deploy
-post_deploy() {
-  log "Post-deploy checks"
-  su - "${APP_USER}" -c "pm2 status ${PM2_APP_NAME}" || true
-  curl -fsS "http://127.0.0.1:${PORT}" >/dev/null && log "App responded on ${PORT}."
-  cleanup_old_releases
-  log "If the site does not load at https://${DOMAIN}, check:\\n  - DNS A record\\n  - pm2 logs ${PM2_APP_NAME}\\n  - nginx -t && systemctl reload nginx"
-}
 
 log "✅ Done.
 Redeploy: push changes then re-run this script.
