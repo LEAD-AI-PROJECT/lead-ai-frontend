@@ -9,7 +9,7 @@ export default function RootLayout({
 }>) {
      const pathname = usePathname();
 
-     if (pathname == "/admin/login" || pathname == "/admin/register") {
+     if (pathname == "/auth/login" || pathname == "/auth/register") {
           return <>{children}</>;
      } else {
           return (

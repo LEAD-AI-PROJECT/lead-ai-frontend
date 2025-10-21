@@ -7,7 +7,7 @@ import NavbarView from "../navbar/Navbar.view";
 export default function MainProvider({ children }: Readonly<{ children: ReactNode }>) {
      const pathname = usePathname();
 
-     if (pathname.startsWith("/admin")) {
+     if (pathname.startsWith("/admin") || pathname.startsWith("/auth")) {
           return <>{children}</>;
      } else {
           return (

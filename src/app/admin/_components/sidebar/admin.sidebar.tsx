@@ -52,7 +52,7 @@ export default function AdminSidebar({ children }: Readonly<{ children?: React.R
                               >
                                    <User />
                               </button>
-                              <button onClick={() => router.push("/admin/login")} className="btn">
+                              <button onClick={() => router.push("/auth/login")} className="btn">
                                    Logout
                               </button>
                          </div>
