@@ -36,7 +36,7 @@ const getAuthToken = () => {
 
 // Create Axios instance
 const axiosInstance = axios.create({
-     baseURL: `${process.env.NEXT_PUBLIC_API_URL}`,
+     baseURL: process.env.NEXT_PUBLIC_API_URL || "https://lead-ai-server.zenika.id/api",
      withCredentials: true, // ensure cookies are sent on cross-origin requests
 });
 

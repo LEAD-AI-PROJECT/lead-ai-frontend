@@ -15,7 +15,7 @@ import {
 } from "@/types/auth";
 
 // Base API URL - adjust according to your backend URL
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4444";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://lead-ai-server.zenika.id/api";
 
 // Configure axios
 const apiClient = axios.create({
