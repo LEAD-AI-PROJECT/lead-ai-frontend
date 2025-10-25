@@ -15,8 +15,7 @@ export const useHomePublicationHook = () => {
      });
 
      // Filter only published publications and take first 3
-     const publications =
-          publicationsData?.data?.filter(item => item.isPublished).slice(0, 3) || [];
+     const publications = publicationsData?.data?.filter(item => item).slice(0, 3) || [];
 
      return {
           publications,

@@ -1,3 +1,4 @@
+"use client";
 import { useQuery, UseQueryOptions } from "@tanstack/react-query";
 import axios from "axios";
 import cookies from "js-cookie";

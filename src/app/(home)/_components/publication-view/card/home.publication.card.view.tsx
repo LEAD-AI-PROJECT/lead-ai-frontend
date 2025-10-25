@@ -12,7 +12,7 @@ export const HomePublicationCardView = ({
      return (
           <div className="home-publication-card">
                <div className="content">
-                    <div className="home-publication-card-title">{title}</div>
+                    <div className="home-publication-card-title ">{title}</div>
                     <div className="home-publication-card-description">{description}</div>
                </div>
                <div className="home-publication-card-action">
