@@ -1,22 +1,19 @@
 import Image from "next/image";
 import { HomeNewsEventItemProps } from "../home.news.event.item";
 
-export const HomeNewsEventCardView = ({
-     date,
-     description,
-     image,
-     link,
-     title,
-     user,
-}: HomeNewsEventItemProps) => {
+interface HomeNewsEventCardProps {
+     newsEvent: HomeNewsEventItemProps;
+}
+
+export const HomeNewsEventCardView = ({ newsEvent }: HomeNewsEventCardProps) => {
      return (
           <div className="home-news-event-card">
                <div className="img-event">
-                    <Image src={image} alt={title} />
+                    <Image src={newsEvent.image} alt={newsEvent.title} width={400} height={300} />
                </div>
-               <div className="user-chip">{user}</div>
-               <div className="title">{title}</div>
-               <div className="description">{description}</div>
+               <div className="user-chip">{newsEvent.user}</div>
+               <div className="title">{newsEvent.title}</div>
+               <div className="description">{newsEvent.description}</div>
           </div>
      );
 };

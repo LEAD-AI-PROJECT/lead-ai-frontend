@@ -9,7 +9,7 @@ export interface HomeNewsEventItemProps {
      description: string;
      link: string;
      title: string;
-     image: StaticImageData;
+     image: StaticImageData | string;
      user: string;
 }
 

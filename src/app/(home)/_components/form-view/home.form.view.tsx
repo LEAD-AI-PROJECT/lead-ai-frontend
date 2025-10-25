@@ -1,6 +1,6 @@
 "use client";
 import "../home.style.scss";
-import HomeFormSectionView from "./form/home.form.sectiion.view";
+import HomeFormSectionView from "./form/home.form.section.view";
 export default function HomeFormView() {
      return (
           <div

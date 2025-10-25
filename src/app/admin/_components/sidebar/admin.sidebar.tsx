@@ -5,7 +5,7 @@ import useAdminSidebarHook from "./admin.sidebar.hook";
 import { AdminSidebarItem } from "./admin.sidebar.item";
 
 export default function AdminSidebar({ children }: Readonly<{ children?: React.ReactNode }>) {
-     const { router } = useAdminSidebarHook();
+     const { router, user, handleLogout } = useAdminSidebarHook();
      return (
           <>
                <div className="drawer lg:drawer-open w-fit">
@@ -52,7 +52,7 @@ export default function AdminSidebar({ children }: Readonly<{ children?: React.R
                               >
                                    <User />
                               </button>
-                              <button onClick={() => router.push("/admin/login")} className="btn">
+                              <button onClick={handleLogout} className="btn btn-error">
                                    Logout
                               </button>
                          </div>

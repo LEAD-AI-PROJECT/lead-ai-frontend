@@ -2,7 +2,6 @@
 import "../home.style.scss";
 import { HomeNewsEventCardView } from "./card/home.new.event.card.view";
 import { useHomeNewsEventHook } from "./home.news.event.hook";
-import { HomeNewsEventItem } from "./home.news.event.item";
 
 export default function HomeNewsEventView() {
      const {
@@ -14,6 +13,7 @@ export default function HomeNewsEventView() {
           onPointerUp,
           onWheel,
           scrollBy,
+          newsEvents,
      } = useHomeNewsEventHook();
 
      return (
@@ -27,7 +27,7 @@ export default function HomeNewsEventView() {
                               <div className="home-news-event-action">
                                    <button
                                         className={`button-arrow ${
-                                             !canScrollPrev ? "disabled" : ""
+                                             canScrollPrev ? "" : "disabled"
                                         }`}
                                         onClick={() => scrollBy(-400)}
                                    >
@@ -83,11 +83,8 @@ export default function HomeNewsEventView() {
                                    marginLeft: "var(--title-offset, 0px)",
                               }}
                          >
-                              {HomeNewsEventItem?.map((item, index) => (
-                                   <HomeNewsEventCardView
-                                        key={String(index) + item.title}
-                                        {...item}
-                                   />
+                              {newsEvents.map((item, index) => (
+                                   <HomeNewsEventCardView key={index} newsEvent={item} />
                               ))}
                          </div>
                     </div>

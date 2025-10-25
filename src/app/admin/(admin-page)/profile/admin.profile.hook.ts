@@ -1,13 +1,19 @@
-import { UserProfileResponseType } from "@/types/user";
+import { UserProfileResponseType, UpdateProfileRequest } from "@/types/user";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AdminProfileSchema, AdminProfileUpsert } from "./_components/config";
+import useQueryApiRequest from "@/hooks/react-query/useQueryApiRequest";
+import { GlobalApiResponse } from "@/hooks/react-query/GlobalApiResponse";
+import useMutationApiRequest from "@/hooks/react-query/useMutationApiRequest";
 
 export default function useAdminProfile() {
      const router = useRouter();
      const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+     const [isUploadingAvatar, setIsUploadingAvatar] = useState(false);
+     const [showSuccess, setShowSuccess] = useState(false);
+     const [showAvatarSuccess, setShowAvatarSuccess] = useState(false);
 
      const {
           register,
@@ -20,57 +26,105 @@ export default function useAdminProfile() {
           mode: "onSubmit",
      });
 
+     // Fetch profile
+     const { data: profileData } = useQueryApiRequest<GlobalApiResponse<UserProfileResponseType>>({
+          key: "User_GetProfile",
+     });
+
+     // Update profile mutation
+     const updateProfileMutation = useMutationApiRequest<
+          GlobalApiResponse<UserProfileResponseType>,
+          UpdateProfileRequest
+     >({
+          key: "User_UpdateProfile",
+     });
+
+     // Upload avatar mutation
+     const uploadAvatarMutation = useMutationApiRequest<
+          GlobalApiResponse<{ url: string }>,
+          FormData
+     >({
+          key: "User_UploadAvatar",
+     });
+
      useEffect(() => {
-          // Optionally fetch current profile and prefill
-          const fetchProfile = async () => {
-               try {
-                    const res = await fetch(`/api/admin/profile`);
-                    if (!res.ok) return;
-                    const data: UserProfileResponseType = await res.json();
-                    setValue("name", data.name);
-                    setValue("phone", data.phone);
-                    setValue("email", data.email);
-                    setValue("address", data.address);
-                    setValue("bio", data.bio);
-                    setValue("photo", data.photo || null);
-                    if (data.photo) setPreviewUrl(data.photo);
-               } catch (err) {
-                    // log so we can diagnose failures during development
-                    // eslint-disable-next-line no-console
-                    console.error("Failed to fetch admin profile:", err);
+          if (profileData?.data) {
+               const profile = profileData.data;
+               setValue("name", profile.name || "");
+               setValue("email", profile.email);
+               setValue("phone", profile.phone || "");
+               setValue("address", profile.address || "");
+               setValue("bio", profile.bio || "");
+               if (profile.avatar) {
+                    setPreviewUrl(profile.avatar);
                }
-          };
-          void fetchProfile();
-     }, [setValue]);
+          }
+     }, [profileData, setValue]);
 
      const onSubmit = async (values: AdminProfileUpsert) => {
-          console.log("submit profile", values);
-          // implement API call here when backend is available
+          try {
+               // Update profile
+               await updateProfileMutation.mutateAsync({
+                    name: values.name || undefined,
+                    phone: values.phone || undefined,
+                    bio: values.bio || undefined,
+                    address: values.address || undefined,
+               });
+
+               // Show success message
+               setShowSuccess(true);
+               setTimeout(() => setShowSuccess(false), 5000);
+          } catch (error) {
+               console.error("Failed to update profile:", error);
+          }
      };
 
-     const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+     const onFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
           const file = e.target.files?.[0];
           if (!file) return;
-          const objectUrl = URL.createObjectURL(file);
-          setPreviewUrl(objectUrl);
 
-          const reader = new FileReader();
-          reader.onload = () => {
-               const result = reader.result as string | null;
-               if (result) setValue("photo", result);
-          };
-          reader.readAsDataURL(file);
+          try {
+               setIsUploadingAvatar(true);
+
+               // Set preview immediately
+               const objectUrl = URL.createObjectURL(file);
+               setPreviewUrl(objectUrl);
+
+               // Upload avatar using mutation (auto-updates profile)
+               const formData = new FormData();
+               formData.append("file", file);
+
+               await uploadAvatarMutation.mutateAsync(formData);
+
+               // Show success message
+               setShowAvatarSuccess(true);
+               setTimeout(() => setShowAvatarSuccess(false), 5000);
+          } catch (error) {
+               console.error("Failed to upload avatar:", error);
+               alert("Failed to upload avatar");
+               // Reset preview on error
+               if (profileData?.data?.avatar) {
+                    setPreviewUrl(profileData.data.avatar);
+               } else {
+                    setPreviewUrl(null);
+               }
+          } finally {
+               setIsUploadingAvatar(false);
+          }
      };
 
      return {
           router,
           register,
-          handleSubmit: (handleSubmit as any)(onSubmit), // typed as any to satisfy generic mismatch
+          handleSubmit: handleSubmit(onSubmit),
           errors,
-          isSubmitting,
+          isSubmitting: isSubmitting || updateProfileMutation.isPending,
           setValue,
           getValues,
           previewUrl,
           onFileChange,
+          isUploadingAvatar,
+          showSuccess,
+          showAvatarSuccess,
      };
 }
