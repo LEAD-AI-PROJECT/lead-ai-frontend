@@ -174,45 +174,6 @@ export default function AuthLoginView() {
                                    </button>
                               </div>
                          </form>
-
-                         {/* Demo Accounts */}
-                         <div className="border-t border-gray-200 pt-6 mt-6">
-                              <div className="text-center mb-4">
-                                   <span className="text-sm font-medium text-gray-500">
-                                        Quick Login
-                                   </span>
-                              </div>
-                              <div className="space-y-2">
-                                   {demoAccounts.map(account => (
-                                        <div
-                                             key={account.email}
-                                             className="bg-gray-50 rounded-lg p-3 flex items-center justify-between"
-                                        >
-                                             <div>
-                                                  <div className="text-sm font-medium text-gray-800">
-                                                       {account.label}
-                                                  </div>
-                                                  <div className="text-xs text-gray-600">
-                                                       {account.email}
-                                                  </div>
-                                             </div>
-                                             <button
-                                                  type="button"
-                                                  onClick={() =>
-                                                       fillDemoAccount(
-                                                            account.email,
-                                                            account.password
-                                                       )
-                                                  }
-                                                  className="btn btn-xs btn-primary"
-                                                  disabled={isLoading}
-                                             >
-                                                  Use
-                                             </button>
-                                        </div>
-                                   ))}
-                              </div>
-                         </div>
                     </div>
                </div>
           </div>
