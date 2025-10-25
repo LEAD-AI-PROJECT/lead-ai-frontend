@@ -1,8 +1,10 @@
 "use client";
+import { GlobalApiResponse } from "@/hooks/react-query/GlobalApiResponse";
+import useMutationApiRequest from "@/hooks/react-query/useMutationApiRequest";
+import useQueryApiRequest from "@/hooks/react-query/useQueryApiRequest";
+import { PublicationResponseType } from "@/types/publication";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { AdminPublicationItem } from "./_components/admin.publication.item";
-import { PublicationResponseType } from "@/types/publication";
 
 export default function useAdminPublicationHook() {
      const router = useRouter();
@@ -10,23 +12,60 @@ export default function useAdminPublicationHook() {
           null
      );
      const [alertDialog, setAlertDialog] = useState(false);
+     const [togglePublishId, setTogglePublishId] = useState<string | null>(null);
+
+     // Fetch all publications
+     const { data: publicationsData, isLoading } = useQueryApiRequest<
+          GlobalApiResponse<PublicationResponseType[]>
+     >({
+          key: "Publication_Find",
+     });
+
+     // Delete mutation
+     const deleteMutation = useMutationApiRequest<any, void>({
+          key: "Publication_Delete",
+          params: { id: selectedPublication?.id },
+          options: {
+               onSuccess: () => {
+                    setAlertDialog(false);
+                    setSelectedPublication(null);
+               },
+          },
+     });
+
+     // Toggle publish mutation
+     const togglePublishMutation = useMutationApiRequest<any, void>({
+          key: "Publication_TogglePublish",
+          params: { id: togglePublishId || "" },
+          options: {
+               onSuccess: () => {
+                    setTogglePublishId(null);
+               },
+          },
+     });
 
      const handleDelete = (id: string) => {
-          const Publication =
-               AdminPublicationItem.find(Publication => Publication.id === id) || null;
-          setSelectedPublication(Publication);
+          const publication = publicationsData?.data?.find(p => p.id === id) || null;
+          setSelectedPublication(publication);
           setAlertDialog(true);
      };
 
      const handleDeleteConfirm = async () => {
-          setAlertDialog(false);
-          setSelectedPublication(null);
+          if (selectedPublication) {
+               deleteMutation.mutate();
+          }
      };
 
      const handleDeleteCancel = () => {
           setAlertDialog(false);
           setSelectedPublication(null);
      };
+
+     const handleTogglePublish = (id: string) => {
+          setTogglePublishId(id);
+          togglePublishMutation.mutate(undefined);
+     };
+
      return {
           router,
           handleDelete,
@@ -34,5 +73,8 @@ export default function useAdminPublicationHook() {
           selectedPublication,
           alertDialog,
           handleDeleteCancel,
+          handleTogglePublish,
+          publications: publicationsData?.data || [],
+          isLoading,
      };
 }

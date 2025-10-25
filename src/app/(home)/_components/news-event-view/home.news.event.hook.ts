@@ -1,4 +1,8 @@
 import { useEffect, useRef, useState } from "react";
+import { HomeNewsEventItem, HomeNewsEventItemProps } from "./home.news.event.item";
+import useQueryApiRequest from "@/hooks/react-query/useQueryApiRequest";
+import { GlobalApiResponse } from "@/hooks/react-query/GlobalApiResponse";
+import { NewsEventResponseType } from "@/types/news-event";
 
 export const useHomeNewsEventHook = () => {
      const trackRef = useRef<HTMLDivElement | null>(null);
@@ -7,6 +11,8 @@ export const useHomeNewsEventHook = () => {
      const startX = useRef(0);
      const scrollLeft = useRef(0);
      const [canScrollPrev, setCanScrollPrev] = useState(false);
+
+     // Use dummy data
 
      function updateButtons() {
           const el = trackRef.current;
@@ -77,6 +83,22 @@ export const useHomeNewsEventHook = () => {
           setTimeout(updateButtons, 150);
      }
 
+     const { data: fetchNewsEvents, isLoading: isLoadingNewsEvents } = useQueryApiRequest<
+          GlobalApiResponse<NewsEventResponseType[]>
+     >({
+          key: "NewsEvent_FindPublished",
+     });
+
+     const newsEvents: HomeNewsEventItemProps[] = (fetchNewsEvents?.data ?? []).map(newsEvent => ({
+          id: newsEvent.id ?? "",
+          title: newsEvent.title ?? "",
+          user: newsEvent.author.name ?? "",
+          image: newsEvent.images[0]?.imageUrl ?? "",
+          description: newsEvent.content ?? "",
+          link: "",
+          date: newsEvent.eventDate,
+     }));
+
      return {
           trackRef,
           titleRef,
@@ -86,5 +108,7 @@ export const useHomeNewsEventHook = () => {
           onPointerMove,
           onPointerUp,
           onWheel,
+          newsEvents,
+          isLoadingNewsEvents,
      };
 };

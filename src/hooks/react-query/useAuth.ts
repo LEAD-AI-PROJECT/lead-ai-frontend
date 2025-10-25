@@ -35,6 +35,56 @@ apiClient.interceptors.request.use(config => {
      return config;
 });
 
+// Flag to prevent multiple redirects
+let isRedirecting = false;
+
+// Add response interceptor to handle token expiration
+apiClient.interceptors.response.use(
+     response => response,
+     error => {
+          // Check if error is due to expired token
+          if (error.response?.status === 401 && !isRedirecting) {
+               const errorMessage = error.response?.data?.message;
+               const hasToken = !!Cookies.get("accessToken");
+
+               // Only show notification if token exists and is expired
+               if (
+                    hasToken &&
+                    (errorMessage?.toLowerCase().includes("expired") ||
+                         errorMessage?.toLowerCase().includes("token") ||
+                         error.response?.data?.error === "Unauthorized")
+               ) {
+                    isRedirecting = true;
+
+                    // Clear cookies
+                    Cookies.remove("accessToken", { path: "/" });
+                    Cookies.remove("refreshToken", { path: "/" });
+
+                    // Show notification only once
+                    if (typeof window !== "undefined") {
+                         // Create and show alert
+                         const alertDiv = document.createElement("div");
+                         alertDiv.className =
+                              "alert alert-error fixed top-4 right-4 w-96 z-50 shadow-lg";
+                         alertDiv.innerHTML = `
+                              <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              </svg>
+                              <span>Session expired. Redirecting to login...</span>
+                         `;
+                         document.body.appendChild(alertDiv);
+
+                         // Redirect after 3 seconds
+                         setTimeout(() => {
+                              window.location.href = "/auth/login";
+                         }, 3000);
+                    }
+               }
+          }
+          return Promise.reject(error);
+     }
+);
+
 export const useAuth = () => {
      const queryClient = useQueryClient();
 
@@ -144,10 +194,15 @@ export const useAuth = () => {
                return response.data;
           },
           onSuccess: () => {
-               // Clear cookies and cache
-               Cookies.remove("accessToken");
-               Cookies.remove("refreshToken");
+               // Clear cookies dengan options yang sama seperti saat set
+               Cookies.remove("accessToken", { path: "/" });
+               Cookies.remove("refreshToken", { path: "/" });
+
+               // Clear all query cache
                queryClient.clear();
+
+               // Redirect ke login page
+               window.location.href = "/auth/login";
           },
      });
 

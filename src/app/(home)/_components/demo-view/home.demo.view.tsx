@@ -1,4 +1,4 @@
-import HomeFormSectionView from "../form-view/form/home.form.sectiion.view";
+import HomeFormSectionView from "../form-view/form/home.form.section.view";
 import "../home.style.scss";
 
 export default function HomeDemoView() {
