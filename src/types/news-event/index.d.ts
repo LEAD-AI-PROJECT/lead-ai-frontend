@@ -23,17 +23,10 @@ export interface NewsEventResponseType {
      eventDate?: string;
      authorId: string;
      author: AuthorType;
+     link?: string;
      isPublished: boolean;
      publishedAt?: string;
      images: ImageNewsEventType[];
      createdAt: string;
      updatedAt: string;
-}
-
-// Request Types
-export interface UpsertNewsEventRequest {
-     title: string;
-     content: string;
-     eventDate?: string;
-     images?: string[]; // Array of image URLs
 }

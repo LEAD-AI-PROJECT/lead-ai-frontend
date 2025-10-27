@@ -1,19 +1,26 @@
 import Image from "next/image";
-import { HomeNewsEventItemProps } from "../home.news.event.item";
+import { NewsEventResponseType } from "@/types/news-event";
+import Link from "next/link";
 
-interface HomeNewsEventCardProps {
-     newsEvent: HomeNewsEventItemProps;
-}
-
-export const HomeNewsEventCardView = ({ newsEvent }: HomeNewsEventCardProps) => {
+export const HomeNewsEventCardView = ({ newsEvent }: { newsEvent: NewsEventResponseType }) => {
+     const shortDesc =
+          typeof newsEvent.content === "string" ? newsEvent.content.substring(0, 100) + "..." : "";
      return (
           <div className="home-news-event-card">
                <div className="img-event">
-                    <Image src={newsEvent.image} alt={newsEvent.title} width={400} height={300} />
+                    <Image
+                         src={newsEvent.images[0].imageUrl}
+                         alt={newsEvent.title}
+                         width={400}
+                         height={300}
+                    />
                </div>
-               <div className="user-chip">{newsEvent.user}</div>
+               <div className="user-chip">{newsEvent.author.name}</div>
                <div className="title">{newsEvent.title}</div>
-               <div className="description">{newsEvent.description}</div>
+               <div className="description">{shortDesc}</div>
+               <Link href={newsEvent.link ?? "#"} target="_blank">
+                    More
+               </Link>
           </div>
      );
 };

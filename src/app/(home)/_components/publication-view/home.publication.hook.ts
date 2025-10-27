@@ -7,7 +7,7 @@ export const useHomePublicationHook = () => {
      const { data: publicationsData, isLoading } = useQueryApiRequest<
           GlobalApiResponse<PublicationResponseType[]>
      >({
-          key: "Publication_Find",
+          key: "Publication_FindPublished",
           config: {
                showLoading: false,
                errorNotification: false,

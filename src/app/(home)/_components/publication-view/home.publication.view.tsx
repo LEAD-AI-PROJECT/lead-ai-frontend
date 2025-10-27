@@ -19,7 +19,7 @@ export default function HomePublicationView() {
                               date={item.createdAt}
                               title={item.title}
                               description={item.content ?? ""}
-                              link=""
+                              link={item.link ?? ""}
                          />
                     ))}
                </div>

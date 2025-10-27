@@ -19,6 +19,7 @@ export interface PublicationResponseType {
      content: string;
      authorId: string;
      author?: AuthorType;
+     link?: string;
      isPublished: boolean;
      publishedAt?: string;
      images?: ImagePublicationType[];
