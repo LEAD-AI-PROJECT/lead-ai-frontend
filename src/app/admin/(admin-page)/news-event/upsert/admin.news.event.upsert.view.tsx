@@ -65,6 +65,25 @@ export default function AdminNewsEventUpsertView({ slug }: AdminNewsEventUpsertV
                                    </label>
                               )}
                          </div>
+                         <div className="form-control">
+                              <label className="label">
+                                   <span className="label-text font-medium">Link</span>
+                              </label>
+                              <input
+                                   {...register("link")}
+                                   type="text"
+                                   placeholder="Enter news/event link"
+                                   className="input input-bordered w-full"
+                                   maxLength={50}
+                              />
+                              {errors?.link && (
+                                   <label className="label">
+                                        <span className="label-text-alt text-error">
+                                             {errors.link.message}
+                                        </span>
+                                   </label>
+                              )}
+                         </div>
 
                          {/* Content */}
                          <div className="form-control mt-4 flex flex-col">

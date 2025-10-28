@@ -5,7 +5,8 @@ import useAdminSidebarHook from "./admin.sidebar.hook";
 import { AdminSidebarItem } from "./admin.sidebar.item";
 
 export default function AdminSidebar({ children }: Readonly<{ children?: React.ReactNode }>) {
-     const { router, user, handleLogout } = useAdminSidebarHook();
+     const { router, handleLogout, handleCloseSidebar } = useAdminSidebarHook();
+
      return (
           <>
                <div className="drawer lg:drawer-open w-fit">
@@ -19,14 +20,23 @@ export default function AdminSidebar({ children }: Readonly<{ children?: React.R
                               aria-label="close sidebar"
                               className="drawer-overlay"
                          ></label>
-                         <ul className="menu bg-white min-h-full w-80 p-4">
+                         <ul className="menu bg-white min-h-full w-80 p-4 gap-2">
                               {/* Sidebar content here */}
+                              <div className="">
+                                   <div className="text-2xl font-bold mb-6 text-center bg-info text-white rounded-md p-2">
+                                        ADMIN LEAD AI
+                                   </div>
+                              </div>
                               {AdminSidebarItem.map(item => (
-                                   <li key={item.label} className="hover:bg-gray-100">
-                                        <div className="flex items-center gap-2">
+                                   <li key={item.label} className="rounded-lg">
+                                        <Link
+                                             href={item.href}
+                                             className="flex items-center gap-2"
+                                             onClick={handleCloseSidebar}
+                                        >
                                              <div className="font-light">{item.icon}</div>
-                                             <Link href={item.href}>{item.label}</Link>
-                                        </div>
+                                             <p>{item.label}</p>
+                                        </Link>
                                    </li>
                               ))}
                          </ul>

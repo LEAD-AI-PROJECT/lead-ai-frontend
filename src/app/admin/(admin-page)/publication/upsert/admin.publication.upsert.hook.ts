@@ -6,8 +6,9 @@ import { useState, useEffect } from "react";
 import useMutationApiRequest from "@/hooks/react-query/useMutationApiRequest";
 import useQueryApiRequest from "@/hooks/react-query/useQueryApiRequest";
 import { GlobalApiResponse } from "@/hooks/react-query/GlobalApiResponse";
-import { PublicationResponseType, UpsertPublicationRequest } from "@/types/publication";
+import { PublicationResponseType } from "@/types/publication";
 import { useRouter } from "next/navigation";
+import { InferType } from "yup";
 
 export default function useAdminPublicationUpsertHook(slug?: string) {
      const router = useRouter();
@@ -38,6 +39,8 @@ export default function useAdminPublicationUpsertHook(slug?: string) {
           defaultValues: {
                title: "",
                content: "",
+               link: "",
+               images: [],
           },
      });
 
@@ -49,6 +52,7 @@ export default function useAdminPublicationUpsertHook(slug?: string) {
                reset({
                     title: data.title,
                     content: data.content,
+                    link: data.link,
                });
 
                // Set existing image URLs
@@ -59,7 +63,7 @@ export default function useAdminPublicationUpsertHook(slug?: string) {
 
      const createMutation = useMutationApiRequest<
           GlobalApiResponse<PublicationResponseType>,
-          UpsertPublicationRequest
+          InferType<typeof PublicationUpsertSchema>
      >({
           key: "Publication_Create",
           options: {
@@ -71,7 +75,7 @@ export default function useAdminPublicationUpsertHook(slug?: string) {
 
      const updateMutation = useMutationApiRequest<
           GlobalApiResponse<PublicationResponseType>,
-          UpsertPublicationRequest
+          InferType<typeof PublicationUpsertSchema>
      >({
           key: "Publication_Update",
           params: { id: slug || "" },
@@ -89,10 +93,11 @@ export default function useAdminPublicationUpsertHook(slug?: string) {
           key: "Publication_UploadImage",
      });
 
-     const onSubmit = async (data: any) => {
-          const payload: UpsertPublicationRequest = {
+     const onSubmit = async (data: InferType<typeof PublicationUpsertSchema>) => {
+          const payload: InferType<typeof PublicationUpsertSchema> = {
                title: data.title,
                content: data.content,
+               link: data.link,
                images: imageUrls.length > 0 ? imageUrls : undefined,
           };
 

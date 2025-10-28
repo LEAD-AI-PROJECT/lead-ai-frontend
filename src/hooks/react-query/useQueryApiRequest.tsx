@@ -1,3 +1,4 @@
+"use client";
 import { useQuery, UseQueryOptions } from "@tanstack/react-query";
 import axios from "axios";
 import cookies from "js-cookie";
@@ -17,7 +18,7 @@ const getAuthToken = () => {
 
 // Create Axios instance
 const axiosInstance = axios.create({
-     baseURL: `${process.env.NEXT_PUBLIC_API_URL}`,
+     baseURL: process.env.NEXT_PUBLIC_API_URL || "https://lead-ai-server.zenika.id/api",
      withCredentials: true, // ensure cookies are sent on cross-origin requests
      headers: {
           "Content-Type": "application/json",

@@ -6,9 +6,10 @@ import { useState, useEffect } from "react";
 import useMutationApiRequest from "@/hooks/react-query/useMutationApiRequest";
 import useQueryApiRequest from "@/hooks/react-query/useQueryApiRequest";
 import { GlobalApiResponse } from "@/hooks/react-query/GlobalApiResponse";
-import { NewsEventResponseType, UpsertNewsEventRequest } from "@/types/news-event";
+import { NewsEventResponseType } from "@/types/news-event";
 import { useRouter } from "next/navigation";
 import dayjs from "dayjs";
+import { InferType } from "yup";
 
 export default function useAdminNewsEventUpsertHook(slug?: string) {
      const router = useRouter();
@@ -40,6 +41,7 @@ export default function useAdminNewsEventUpsertHook(slug?: string) {
                title: "",
                content: "",
                eventDate: "",
+               link: "",
           },
      });
 
@@ -58,6 +60,7 @@ export default function useAdminNewsEventUpsertHook(slug?: string) {
                     title: data.title,
                     content: data.content,
                     eventDate: formattedEventDate,
+                    link: data.link,
                });
 
                // Set existing image URLs
@@ -67,7 +70,7 @@ export default function useAdminNewsEventUpsertHook(slug?: string) {
      }, [isEditMode, newsEventData, reset]);
      const createMutation = useMutationApiRequest<
           GlobalApiResponse<NewsEventResponseType>,
-          UpsertNewsEventRequest
+          InferType<typeof NewsEventUpsertSchema>
      >({
           key: "NewsEvent_Create",
           options: {
@@ -79,7 +82,7 @@ export default function useAdminNewsEventUpsertHook(slug?: string) {
 
      const updateMutation = useMutationApiRequest<
           GlobalApiResponse<NewsEventResponseType>,
-          UpsertNewsEventRequest
+          InferType<typeof NewsEventUpsertSchema>
      >({
           key: "NewsEvent_Update",
           params: { id: slug || "" },
@@ -97,13 +100,12 @@ export default function useAdminNewsEventUpsertHook(slug?: string) {
           key: "NewsEvent_UploadImage",
      });
 
-     const onSubmit = async (data: any) => {
+     const onSubmit = async (data: InferType<typeof NewsEventUpsertSchema>) => {
           // Convert datetime-local format to ISO string for backend
           const eventDateISO = data.eventDate ? dayjs(data.eventDate).toISOString() : undefined;
 
-          const payload: UpsertNewsEventRequest = {
-               title: data.title,
-               content: data.content,
+          const payload: InferType<typeof NewsEventUpsertSchema> = {
+               ...data,
                eventDate: eventDateISO,
                images: imageUrls.length > 0 ? imageUrls : undefined,
           };

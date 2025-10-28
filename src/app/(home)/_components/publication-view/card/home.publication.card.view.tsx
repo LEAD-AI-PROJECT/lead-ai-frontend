@@ -9,16 +9,22 @@ export const HomePublicationCardView = ({
      link,
      title,
 }: HomePublicationItemProps) => {
+     const shortDesc = typeof description === "string" ? description.substring(0, 100) + "..." : "";
+
      return (
           <div className="home-publication-card">
                <div className="content">
-                    <div className="home-publication-card-title">{title}</div>
-                    <div className="home-publication-card-description">{description}</div>
+                    <Link className="home-publication-card-title " href={link} target="_blank">
+                         {title}
+                    </Link>
+                    <div className="home-publication-card-description">{shortDesc}</div>
                </div>
                <div className="home-publication-card-action">
                     <div className="date">{date}</div>
                     <div className="button-action">
-                         <Link href={link}>SEE MORE</Link>
+                         <Link href={link} target="_blank">
+                              SEE MORE
+                         </Link>
                     </div>
                </div>
           </div>

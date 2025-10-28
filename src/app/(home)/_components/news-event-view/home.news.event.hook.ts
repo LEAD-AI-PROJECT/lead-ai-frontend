@@ -1,8 +1,7 @@
-import { useEffect, useRef, useState } from "react";
-import { HomeNewsEventItem, HomeNewsEventItemProps } from "./home.news.event.item";
-import useQueryApiRequest from "@/hooks/react-query/useQueryApiRequest";
 import { GlobalApiResponse } from "@/hooks/react-query/GlobalApiResponse";
+import useQueryApiRequest from "@/hooks/react-query/useQueryApiRequest";
 import { NewsEventResponseType } from "@/types/news-event";
+import { useEffect, useRef, useState } from "react";
 
 export const useHomeNewsEventHook = () => {
      const trackRef = useRef<HTMLDivElement | null>(null);
@@ -89,16 +88,6 @@ export const useHomeNewsEventHook = () => {
           key: "NewsEvent_FindPublished",
      });
 
-     const newsEvents: HomeNewsEventItemProps[] = (fetchNewsEvents?.data ?? []).map(newsEvent => ({
-          id: newsEvent.id ?? "",
-          title: newsEvent.title ?? "",
-          user: newsEvent.author.name ?? "",
-          image: newsEvent.images[0]?.imageUrl ?? "",
-          description: newsEvent.content ?? "",
-          link: "",
-          date: newsEvent.eventDate,
-     }));
-
      return {
           trackRef,
           titleRef,
@@ -108,7 +97,7 @@ export const useHomeNewsEventHook = () => {
           onPointerMove,
           onPointerUp,
           onWheel,
-          newsEvents,
+          newsEvents: fetchNewsEvents?.data ?? [],
           isLoadingNewsEvents,
      };
 };

@@ -1,8 +1,7 @@
 "use client";
-import { useAuthLogin } from "./auth.login.hook";
-import { Eye, EyeOff, CheckCircle, AlertCircle } from "lucide-react";
+import { AlertCircle, CheckCircle, Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
-import { demoAccounts } from "./config";
+import { useAuthLogin } from "./auth.login.hook";
 
 export default function AuthLoginView() {
      const {
@@ -21,11 +20,6 @@ export default function AuthLoginView() {
      const [showPassword, setShowPassword] = useState(false);
 
      // Quick fill demo account
-     const fillDemoAccount = (email: string, password: string) => {
-          setValue("email", email);
-          setValue("password", password);
-     };
-
      return (
           <div className="min-h-[60vh] flex items-center justify-center p-4 lg:w-1/3 md:w-1/2 sm:w-full relative">
                <div className="w-full bg-white rounded-lg shadow-md overflow-hidden md:flex">

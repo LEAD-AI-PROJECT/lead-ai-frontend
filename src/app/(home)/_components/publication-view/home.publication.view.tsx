@@ -1,7 +1,9 @@
+"use client";
 import HomePublicationCardView from "./card/home.publication.card.view";
-import { homePublicationItems } from "./home.publication.item";
+import { useHomePublicationHook } from "./home.publication.hook";
 
 export default function HomePublicationView() {
+     const { publications } = useHomePublicationHook();
      return (
           <div id="resources" className="home-publication">
                <div className="home-publication-title">Publication</div>
@@ -11,8 +13,14 @@ export default function HomePublicationView() {
                     validated methods, and real-world impact.
                </div>
                <div className="home-publication-list mt-10">
-                    {homePublicationItems.map((item, index) => (
-                         <HomePublicationCardView key={item.link + index} {...item} />
+                    {publications.map((item, index) => (
+                         <HomePublicationCardView
+                              key={index}
+                              date={item.createdAt}
+                              title={item.title}
+                              description={item.content ?? ""}
+                              link={item.link ?? ""}
+                         />
                     ))}
                </div>
                <div className="flex justify-center relative z-10 mt-10">
