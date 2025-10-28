@@ -15,8 +15,11 @@ export const HomeNewsEventCardView = ({ newsEvent }: { newsEvent: NewsEventRespo
                          height={300}
                     />
                </div>
+
                <div className="user-chip">{newsEvent.author.name}</div>
-               <div className="title">{newsEvent.title}</div>
+               <Link className="title" href={newsEvent.link ?? "#"} target="_blank">
+                    {newsEvent.title}
+               </Link>
                <div className="description">{shortDesc}</div>
                <Link href={newsEvent.link ?? "#"} target="_blank">
                     More

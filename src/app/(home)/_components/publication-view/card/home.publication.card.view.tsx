@@ -14,7 +14,9 @@ export const HomePublicationCardView = ({
      return (
           <div className="home-publication-card">
                <div className="content">
-                    <div className="home-publication-card-title ">{title}</div>
+                    <Link className="home-publication-card-title " href={link} target="_blank">
+                         {title}
+                    </Link>
                     <div className="home-publication-card-description">{shortDesc}</div>
                </div>
                <div className="home-publication-card-action">

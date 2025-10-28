@@ -5,7 +5,8 @@ import useAdminSidebarHook from "./admin.sidebar.hook";
 import { AdminSidebarItem } from "./admin.sidebar.item";
 
 export default function AdminSidebar({ children }: Readonly<{ children?: React.ReactNode }>) {
-     const { router, user, handleLogout } = useAdminSidebarHook();
+     const { router, handleLogout, handleCloseSidebar } = useAdminSidebarHook();
+
      return (
           <>
                <div className="drawer lg:drawer-open w-fit">
@@ -28,7 +29,11 @@ export default function AdminSidebar({ children }: Readonly<{ children?: React.R
                               </div>
                               {AdminSidebarItem.map(item => (
                                    <li key={item.label} className="rounded-lg">
-                                        <Link href={item.href} className="flex items-center gap-2">
+                                        <Link
+                                             href={item.href}
+                                             className="flex items-center gap-2"
+                                             onClick={handleCloseSidebar}
+                                        >
                                              <div className="font-light">{item.icon}</div>
                                              <p>{item.label}</p>
                                         </Link>

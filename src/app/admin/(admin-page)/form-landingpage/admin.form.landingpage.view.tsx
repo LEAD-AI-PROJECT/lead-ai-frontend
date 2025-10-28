@@ -1,9 +1,9 @@
 "use client";
-import React from "react";
-import { CheckCircle, XCircle, Trash2 } from "lucide-react";
 import AlertConfirmation from "@/components/alert/alert.confirmation";
-import useAdminFormLandingPageHook from "./admin.form.landingpage.hook";
 import dayjs from "dayjs";
+import { Trash2 } from "lucide-react";
+import React from "react";
+import useAdminFormLandingPageHook from "./admin.form.landingpage.hook";
 
 interface AdminFormLandingPageViewProps {}
 
@@ -13,7 +13,6 @@ const AdminFormLandingPageView: React.FC<AdminFormLandingPageViewProps> = () => 
           handleDelete,
           handleDeleteConfirm,
           handleDeleteCancel,
-          handleToggleProcessed,
           forms,
           isLoading,
      } = useAdminFormLandingPageHook();
@@ -54,6 +53,7 @@ const AdminFormLandingPageView: React.FC<AdminFormLandingPageViewProps> = () => 
                                    <table className="table table-zebra w-full">
                                         <thead>
                                              <tr>
+                                                  <th>No</th>
                                                   <th>Date</th>
                                                   <th>Name</th>
                                                   <th>Email</th>
@@ -68,6 +68,7 @@ const AdminFormLandingPageView: React.FC<AdminFormLandingPageViewProps> = () => 
                                         <tbody>
                                              {forms.map(form => (
                                                   <tr key={form.id}>
+                                                       <td>{forms.indexOf(form) + 1}</td>
                                                        <td className="text-xs">
                                                             {dayjs(form.createdAt).format(
                                                                  "DD/MM/YY HH:mm"

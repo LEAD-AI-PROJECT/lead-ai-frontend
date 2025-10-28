@@ -7,6 +7,13 @@ export default function useAdminSidebarHook() {
      const router = useRouter();
      const { logout, user } = useAuth();
 
+     const handleCloseSidebar = () => {
+          const drawerToggle = document.getElementById("my-drawer-2") as HTMLInputElement;
+          if (drawerToggle) {
+               drawerToggle.checked = false;
+          }
+     };
+
      const handleLogout = () => {
           logout();
      };
@@ -15,5 +22,6 @@ export default function useAdminSidebarHook() {
           router,
           user,
           handleLogout,
+          handleCloseSidebar,
      };
 }
