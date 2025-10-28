@@ -55,7 +55,7 @@ export default function AdminPublicationUpsertView({ slug }: AdminPublicationUps
                                    type="text"
                                    placeholder="Enter publication title"
                                    className="input input-bordered w-full"
-                                   maxLength={50}
+                                   maxLength={100}
                               />
                               {errors?.title && (
                                    <label className="label">
@@ -75,7 +75,6 @@ export default function AdminPublicationUpsertView({ slug }: AdminPublicationUps
                                    type="text"
                                    placeholder="Enter news/event link"
                                    className="input input-bordered w-full"
-                                   maxLength={50}
                               />
                               {errors?.link && (
                                    <label className="label">

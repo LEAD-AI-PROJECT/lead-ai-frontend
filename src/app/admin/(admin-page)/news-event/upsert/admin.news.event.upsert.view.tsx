@@ -55,7 +55,7 @@ export default function AdminNewsEventUpsertView({ slug }: AdminNewsEventUpsertV
                                    type="text"
                                    placeholder="Enter news/event title"
                                    className="input input-bordered w-full"
-                                   maxLength={50}
+                                   maxLength={100}
                               />
                               {errors?.title && (
                                    <label className="label">
@@ -74,7 +74,6 @@ export default function AdminNewsEventUpsertView({ slug }: AdminNewsEventUpsertV
                                    type="text"
                                    placeholder="Enter news/event link"
                                    className="input input-bordered w-full"
-                                   maxLength={50}
                               />
                               {errors?.link && (
                                    <label className="label">
