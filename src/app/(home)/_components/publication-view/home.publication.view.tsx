@@ -13,15 +13,17 @@ export default function HomePublicationView() {
                     validated methods, and real-world impact.
                </div>
                <div className="home-publication-list mt-10">
-                    {publications.map((item, index) => (
-                         <HomePublicationCardView
-                              key={index}
-                              date={item.createdAt}
-                              title={item.title}
-                              description={item.content ?? ""}
-                              link={item.link ?? ""}
-                         />
-                    ))}
+                    <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6">
+                         {publications.map((item, index) => (
+                              <HomePublicationCardView
+                                   key={index}
+                                   date={item.createdAt}
+                                   title={item.title}
+                                   description={item.content ?? ""}
+                                   link={item.link ?? ""}
+                              />
+                         ))}
+                    </div>
                </div>
                <div className="flex justify-center relative z-10 mt-10">
                     <button className="secondary ">
