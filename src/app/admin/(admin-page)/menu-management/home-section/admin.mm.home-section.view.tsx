@@ -1,9 +1,11 @@
 "use client";
-import useAdminMenuManagementHomeSection from "./admin.mm.home-section.hook";
 import { HomeSectionMenuEnumLabels } from "@/types/enums/menu.enum";
+import AdminMenuManagementHomeSectionFormView from "./_components/form/admin.mm.home-section.form.view";
+import useAdminMenuManagementHomeSection from "./admin.mm.home-section.hook";
 
 export default function AdminMenuManagementHomeSectionView() {
-     const { activeTab, tabs, handleTabChange } = useAdminMenuManagementHomeSection();
+     const { activeTab, tabs, handleTabChange, homeSection, isLoading } =
+          useAdminMenuManagementHomeSection();
 
      return (
           <div className="w-full">
@@ -38,10 +40,20 @@ export default function AdminMenuManagementHomeSectionView() {
                          <h2 className="text-xl font-semibold mb-4">
                               {HomeSectionMenuEnumLabels[activeTab]}
                          </h2>
-                         <div className="text-gray-600">
-                              Content for {HomeSectionMenuEnumLabels[activeTab]} section will be
-                              here
-                         </div>
+
+                         {isLoading ? (
+                              <div className="flex justify-center py-8">
+                                   <span className="loading loading-spinner loading-lg"></span>
+                              </div>
+                         ) : (
+                              <AdminMenuManagementHomeSectionFormView
+                                   type={activeTab}
+                                   initialData={{
+                                        title: homeSection?.title || "",
+                                        description: homeSection?.description || null,
+                                   }}
+                              />
+                         )}
                     </div>
                </div>
           </div>
