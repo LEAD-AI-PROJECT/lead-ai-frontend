@@ -7,6 +7,7 @@ import { useContext, useEffect } from "react";
 import { constructUrl } from "@/data-services/utils/constructUrl";
 import { allQueries } from "@/data-services/queries";
 import { LoadingContext } from "@/components/provider/QueryProvider";
+import { showToast } from "@/lib/toast";
 
 // Get token from cookies
 const getAuthToken = () => {
@@ -148,12 +149,14 @@ const useQueryApiRequest = <T,>({
           }
 
           if (queryFetch.isError) {
-               if (config.errorNotification ?? true) {
-                    // showErrorNotification(
-                    //      config.errorNotificationMessage ??
-                    //           queryFetch.error.response?.data?.message ??
-                    //           queryFetch.error?.message
-                    // );
+               // Query error notification is OFF by default
+               if (config.errorNotification) {
+                    const errMsg =
+                         config.errorNotificationMessage ??
+                         queryFetch.error.response?.data?.message ??
+                         queryFetch.error?.message ??
+                         "❌ Failed to fetch data";
+                    showToast(errMsg, "error");
                }
           }
 
@@ -162,12 +165,13 @@ const useQueryApiRequest = <T,>({
                     onSuccess(queryFetch.data);
                }
 
-               if (config.successNotification ?? false) {
-                    // showSuccessNotification(
-                    //      config.successNotificationMessage ??
-                    //           (queryFetch.data as any).message ??
-                    //           "Success"
-                    // );
+               // Query success notification is OFF by default
+               if (config.successNotification) {
+                    const msg =
+                         config.successNotificationMessage ??
+                         (queryFetch.data as any).message ??
+                         "✅ Data loaded successfully";
+                    showToast(msg, "success");
                }
           }
      }, [

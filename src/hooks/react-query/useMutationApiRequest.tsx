@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { constructUrl } from "@/data-services/utils/constructUrl";
 import { AllQueryKeys } from "@/data-services/queries";
 import { LoadingContext } from "@/components/provider/QueryProvider";
+import { showToast } from "@/lib/toast";
 
 type MutationApiRequestProps<T, V> = {
      key: keyof typeof allMutations;
@@ -167,8 +168,10 @@ const useMutationApiRequest = <T, V>({
                // Show success notification by default, unless explicitly disabled
                if (config?.successNotification ?? true) {
                     const msg =
-                         config?.successNotificationMessage ?? (data as any)?.message ?? "Success";
-                    // showSuccessNotification(msg);
+                         config?.successNotificationMessage ??
+                         (data as any)?.message ??
+                         "✅ Operation successful";
+                    showToast(msg, "success");
                }
                console.log("Mutation successful:", data);
           },
@@ -181,8 +184,8 @@ const useMutationApiRequest = <T, V>({
                          config?.errorNotificationMessage ??
                          error.response?.data?.message ??
                          error.message ??
-                         "Something went wrong";
-                    // showErrorNotification(errMsg);
+                         "❌ Something went wrong";
+                    showToast(errMsg, "error");
                }
           },
           onSettled: () => {

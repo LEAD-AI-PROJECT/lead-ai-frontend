@@ -1,5 +1,5 @@
 "use client";
-import { Grip, User } from "lucide-react";
+import { ChevronDown, Grip, User } from "lucide-react";
 import Link from "next/link";
 import useAdminSidebarHook from "./admin.sidebar.hook";
 import { AdminSidebarItem } from "./admin.sidebar.item";
@@ -9,6 +9,19 @@ export default function AdminSidebar({ children }: Readonly<{ children?: React.R
 
      return (
           <>
+               <style jsx global>{`
+                    /* Hide ALL default markers/chevrons */
+                    .menu details > summary::-webkit-details-marker,
+                    .menu details > summary::marker {
+                         display: none !important;
+                    }
+                    .menu details > summary {
+                         list-style: none !important;
+                    }
+                    .menu details > summary::-webkit-details-marker {
+                         content: none !important;
+                    }
+               `}</style>
                <div className="drawer lg:drawer-open w-fit">
                     <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
                     <div className="drawer-content flex flex-col items-center justify-center">
@@ -28,15 +41,44 @@ export default function AdminSidebar({ children }: Readonly<{ children?: React.R
                                    </div>
                               </div>
                               {AdminSidebarItem.map(item => (
-                                   <li key={item.label} className="rounded-lg">
-                                        <Link
-                                             href={item.href}
-                                             className="flex items-center gap-2"
-                                             onClick={handleCloseSidebar}
-                                        >
-                                             <div className="font-light">{item.icon}</div>
-                                             <p>{item.label}</p>
-                                        </Link>
+                                   <li key={item.label}>
+                                        {item.children && item.children.length > 0 ? (
+                                             <details className="group">
+                                                  <summary className="flex items-center justify-between list-none cursor-pointer">
+                                                       <div className="flex items-center gap-2">
+                                                            <div className="font-light">
+                                                                 {item.icon}
+                                                            </div>
+                                                            <p>{item.label}</p>
+                                                       </div>
+                                                  </summary>
+                                                  <ul className="flex flex-col gap-2 mt-2">
+                                                       {item.children.map(child => (
+                                                            <li key={child.label}>
+                                                                 <Link
+                                                                      href={child.href}
+                                                                      className="flex items-center gap-2"
+                                                                      onClick={handleCloseSidebar}
+                                                                 >
+                                                                      <div className="font-light">
+                                                                           {child.icon}
+                                                                      </div>
+                                                                      <p>{child.label}</p>
+                                                                 </Link>
+                                                            </li>
+                                                       ))}
+                                                  </ul>
+                                             </details>
+                                        ) : (
+                                             <Link
+                                                  href={item.href}
+                                                  className="flex items-center gap-2"
+                                                  onClick={handleCloseSidebar}
+                                             >
+                                                  <div className="font-light">{item.icon}</div>
+                                                  <p>{item.label}</p>
+                                             </Link>
+                                        )}
                                    </li>
                               ))}
                          </ul>

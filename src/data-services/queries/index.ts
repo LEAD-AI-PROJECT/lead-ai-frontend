@@ -5,6 +5,7 @@ import { publicationQueries, PublicationQueryKeys } from "./publication";
 import { formLandingPageQueries, FormLandingPageQueryKeys } from "./form-landingpage";
 import { dashboardQueries, DashboardQueryKeys } from "./dashboard";
 import { userQueries, UserQueryKeys } from "./user";
+import { homeSectionQueries, HomeSectionQueryKeys } from "./menu-management/home-section";
 
 export type AllQueryKeys =
      | AuthQueryKeys
@@ -12,7 +13,8 @@ export type AllQueryKeys =
      | PublicationQueryKeys
      | FormLandingPageQueryKeys
      | DashboardQueryKeys
-     | UserQueryKeys;
+     | UserQueryKeys
+     | HomeSectionQueryKeys;
 
 export const allQueries: QueriesDataService<AllQueryKeys> = {
      ...authQueries,
@@ -21,4 +23,5 @@ export const allQueries: QueriesDataService<AllQueryKeys> = {
      ...formLandingPageQueries,
      ...dashboardQueries,
      ...userQueries,
+     ...homeSectionQueries,
 };
