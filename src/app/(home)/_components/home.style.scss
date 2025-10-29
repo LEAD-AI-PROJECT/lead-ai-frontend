@@ -1104,8 +1104,13 @@
                }
           }
           .home-publication-card-description {
+               overflow: hidden;
                font-size: 13px;
+               text-wrap: wrap;
                color: #666666;
+               word-break: break-word;
+               overflow-wrap: break-word;
+               white-space: normal;
           }
      }
 
