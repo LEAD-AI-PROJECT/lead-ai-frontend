@@ -1,0 +1,38 @@
+/* MDX Editor Custom Styles */
+
+/* Target all possible content editable areas */
+.mdx-editor-wrapper [contenteditable="true"] ul,
+.mdx-editor-wrapper div[role="textbox"] ul {
+     list-style-type: disc !important;
+     padding-left: 2rem !important;
+     margin: 0.5rem 0 !important;
+}
+
+.mdx-editor-wrapper [contenteditable="true"] ol,
+.mdx-editor-wrapper div[role="textbox"] ol {
+     list-style-type: decimal !important;
+     padding-left: 2rem !important;
+     margin: 0.5rem 0 !important;
+}
+
+.mdx-editor-wrapper [contenteditable="true"] li,
+.mdx-editor-wrapper div[role="textbox"] li {
+     display: list-item !important;
+     margin-left: 1rem !important;
+     padding-left: 0.25rem !important;
+}
+
+.mdx-editor-wrapper [contenteditable="true"] ul ul,
+.mdx-editor-wrapper div[role="textbox"] ul ul {
+     list-style-type: circle !important;
+}
+
+.mdx-editor-wrapper [contenteditable="true"] ul ul ul,
+.mdx-editor-wrapper div[role="textbox"] ul ul ul {
+     list-style-type: square !important;
+}
+
+/* Force list item display */
+.mdx-editor-wrapper li {
+     list-style-position: outside !important;
+}

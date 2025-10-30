@@ -2,6 +2,12 @@
 import { HomeSectionMenuEnum } from "@/types/enums/menu.enum";
 import useAdminMenuManagementHomeSectionForm from "./admin.mm.home-section.form.hook";
 import { Controller } from "react-hook-form";
+import dynamic from "next/dynamic";
+
+const MdxEditor = dynamic(() => import("@/components/input/mdx.editor"), {
+     ssr: false,
+     loading: () => <div className="skeleton h-64 w-full"></div>,
+});
 
 interface AdminMenuManagementHomeSectionFormViewProps {
      type: HomeSectionMenuEnum;
@@ -50,20 +56,19 @@ export default function AdminMenuManagementHomeSectionFormView({
                     )}
                </div>
 
-               {/* Description Field */}
+               {/* Description Field - MDX Editor */}
                <div className="form-control w-full">
                     <label className="label">
-                         <span className="label-text font-medium">Description</span>
+                         <span className="label-text font-medium">Description (Markdown)</span>
                     </label>
                     <Controller
                          name="description"
                          control={form.control}
                          render={({ field }) => (
-                              <textarea
-                                   {...field}
+                              <MdxEditor
                                    value={field.value || ""}
-                                   placeholder="Enter section description"
-                                   className="textarea textarea-bordered w-full h-32"
+                                   onChange={field.onChange}
+                                   placeholder="Write your content in markdown format..."
                               />
                          )}
                     />

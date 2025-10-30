@@ -36,7 +36,7 @@ export default function AdminMenuManagementHomeSectionView() {
                     </div>
 
                     {/* Section Content */}
-                    <div className="bg-white rounded-lg border p-6">
+                    <div className="bg-white rounded-lg p-6">
                          <h2 className="text-xl font-semibold mb-4">
                               {HomeSectionMenuEnumLabels[activeTab]}
                          </h2>
