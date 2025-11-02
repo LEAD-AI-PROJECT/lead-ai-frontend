@@ -100,7 +100,10 @@ export default function NavbarView() {
                                         const id = link.substring(1);
                                         const el = document.getElementById(id);
                                         if (el) {
-                                             el.scrollIntoView({ behavior: "smooth", block: "start" });
+                                             el.scrollIntoView({
+                                                  behavior: "smooth",
+                                                  block: "start",
+                                             });
                                         }
                                    } else {
                                         window.location.href = link;
@@ -166,7 +169,10 @@ export default function NavbarView() {
                                         const id = link.substring(1);
                                         const el = document.getElementById(id);
                                         if (el) {
-                                             el.scrollIntoView({ behavior: "smooth", block: "start" });
+                                             el.scrollIntoView({
+                                                  behavior: "smooth",
+                                                  block: "start",
+                                             });
                                         }
                                    } else {
                                         window.location.href = link;
