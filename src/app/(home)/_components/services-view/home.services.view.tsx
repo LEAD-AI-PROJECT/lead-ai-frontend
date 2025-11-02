@@ -1,5 +1,5 @@
 import "../home.style.scss";
-import HomeServiceCard from "./home.service.card.view";
+import HomeServiceCard from "./card/home.service.card.view";
 import { serviceItems } from "./home.services.item";
 
 export default function HomeServicesView() {

@@ -1,5 +1,8 @@
+"use client";
 import "../home.style.scss";
+import useHomeWhyLeadAI from "./home.why-lead-ai.hook";
 export default function HomeWhyLeadAIView() {
+     const { data, isLoading } = useHomeWhyLeadAI();
      return (
           <div className="lg:p-[3rem] md:p-[2rem] sm:p-[1rem] p-[10px]">
                <div className="home-why-ai">

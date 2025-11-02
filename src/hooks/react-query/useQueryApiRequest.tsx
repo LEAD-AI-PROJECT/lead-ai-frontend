@@ -8,6 +8,7 @@ import { constructUrl } from "@/data-services/utils/constructUrl";
 import { allQueries } from "@/data-services/queries";
 import { LoadingContext } from "@/components/provider/QueryProvider";
 import { showToast } from "@/lib/toast";
+import { useRouter } from "next/navigation";
 
 // Get token from cookies
 const getAuthToken = () => {
@@ -51,6 +52,7 @@ axiosInstance.interceptors.response.use(
      error => {
           // Check if error is due to expired token
           if (error.response?.status === 401 && !isRedirecting) {
+               const router = useRouter();
                const errorMessage = error.response?.data?.message;
                const hasToken = !!cookies.get("accessToken");
 
@@ -83,7 +85,7 @@ axiosInstance.interceptors.response.use(
 
                          // Redirect after 3 seconds
                          setTimeout(() => {
-                              window.location.href = "/auth/login";
+                              router.push("/auth/login");
                          }, 3000);
                     }
                }

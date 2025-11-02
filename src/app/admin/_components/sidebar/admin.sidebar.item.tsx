@@ -22,6 +22,11 @@ export const AdminSidebarItem: AdminSidebarItemType[] = [
           icon: <SquareMenu size={16} />,
           children: [
                {
+                    label: "Global Section",
+                    href: "/admin/menu-management/global-section",
+                    icon: <Dot size={14} />,
+               },
+               {
                     label: "Home Section",
                     href: "/admin/menu-management/home-section",
                     icon: <Dot size={14} />,

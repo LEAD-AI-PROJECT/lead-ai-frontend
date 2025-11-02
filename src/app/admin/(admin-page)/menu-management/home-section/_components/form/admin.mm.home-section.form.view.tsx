@@ -3,10 +3,11 @@ import { HomeSectionMenuEnum } from "@/types/enums/menu.enum";
 import useAdminMenuManagementHomeSectionForm from "./admin.mm.home-section.form.hook";
 import { Controller } from "react-hook-form";
 import dynamic from "next/dynamic";
+import { FormInfoGuide } from "./form.info.guide";
 
-const MdxEditor = dynamic(() => import("@/components/input/mdx.editor"), {
+const SplitMarkdownEditor = dynamic(() => import("@/components/input/split-markdown-editor"), {
      ssr: false,
-     loading: () => <div className="skeleton h-64 w-full"></div>,
+     loading: () => <div className="skeleton h-96 w-full"></div>,
 });
 
 interface AdminMenuManagementHomeSectionFormViewProps {
@@ -28,7 +29,10 @@ export default function AdminMenuManagementHomeSectionFormView({
 
      return (
           <form onSubmit={onSubmit} className="space-y-6">
-               {/* Title Field */}
+               {/* Info Guide */}
+               <FormInfoGuide />
+
+               {/* Title Field - Split Markdown Editor */}
                <div className="form-control w-full">
                     <label className="label">
                          <span className="label-text font-medium">
@@ -39,11 +43,10 @@ export default function AdminMenuManagementHomeSectionFormView({
                          name="title"
                          control={form.control}
                          render={({ field }) => (
-                              <input
-                                   {...field}
-                                   type="text"
-                                   placeholder="Enter section title"
-                                   className="input input-bordered w-full"
+                              <SplitMarkdownEditor
+                                   value={field.value || ""}
+                                   onChange={field.onChange}
+                                   placeholder="Enter section title in markdown format..."
                               />
                          )}
                     />
@@ -56,16 +59,16 @@ export default function AdminMenuManagementHomeSectionFormView({
                     )}
                </div>
 
-               {/* Description Field - MDX Editor */}
+               {/* Description Field - Split Markdown Editor */}
                <div className="form-control w-full">
                     <label className="label">
-                         <span className="label-text font-medium">Description (Markdown)</span>
+                         <span className="label-text font-medium">Description</span>
                     </label>
                     <Controller
                          name="description"
                          control={form.control}
                          render={({ field }) => (
-                              <MdxEditor
+                              <SplitMarkdownEditor
                                    value={field.value || ""}
                                    onChange={field.onChange}
                                    placeholder="Write your content in markdown format..."
