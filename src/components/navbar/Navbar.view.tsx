@@ -91,13 +91,25 @@ export default function NavbarView() {
                          >
                               {loginButtonData?.label || "Login"}
                          </Link>
-                         <Link
-                              href={ctaButtonData?.link || "#"}
+                         <button
+                              type="button"
                               className="primary"
-                              onClick={close}
+                              onClick={() => {
+                                   const link = ctaButtonData?.link || "#";
+                                   if (link.startsWith("#")) {
+                                        const id = link.substring(1);
+                                        const el = document.getElementById(id);
+                                        if (el) {
+                                             el.scrollIntoView({ behavior: "smooth", block: "start" });
+                                        }
+                                   } else {
+                                        window.location.href = link;
+                                   }
+                                   close();
+                              }}
                          >
                               {ctaButtonData?.label || "Try Lead.AI"}
-                         </Link>
+                         </button>
                     </div>
                </div>
 
@@ -145,13 +157,25 @@ export default function NavbarView() {
                          >
                               {loginButtonData?.label || "Login"}
                          </Link>
-                         <Link
-                              href={ctaButtonData?.link || "#"}
+                         <button
+                              type="button"
                               className="primary"
-                              onClick={close}
+                              onClick={() => {
+                                   const link = ctaButtonData?.link || "#";
+                                   if (link.startsWith("#")) {
+                                        const id = link.substring(1);
+                                        const el = document.getElementById(id);
+                                        if (el) {
+                                             el.scrollIntoView({ behavior: "smooth", block: "start" });
+                                        }
+                                   } else {
+                                        window.location.href = link;
+                                   }
+                                   close();
+                              }}
                          >
                               {ctaButtonData?.label || "Try Lead.AI"}
-                         </Link>
+                         </button>
                     </div>
                </div>
           </>

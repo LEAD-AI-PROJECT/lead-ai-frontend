@@ -1,8 +1,9 @@
 "use client";
-import { useFieldArray } from "react-hook-form";
 import { HeaderContent } from "@/types/menu-management/global-section";
-import useAdminGlobalSectionHeaderForm from "./admin.mm.global-section.header.form.hook";
+import { X } from "lucide-react";
 import { useRef } from "react";
+import { useFieldArray } from "react-hook-form";
+import useAdminGlobalSectionHeaderForm from "./admin.mm.global-section.header.form.hook";
 
 interface HeaderFormProps {
      initialData?: HeaderContent;
@@ -76,7 +77,7 @@ export default function AdminGlobalSectionHeaderForm({ initialData, isLoading }:
                                         type="button"
                                         onClick={() => fileInputRef.current?.click()}
                                         disabled={isUploadingLogo}
-                                        className="btn btn-primary btn-sm sm:btn-md w-full"
+                                        className="btn btn-primary sm:btn-md w-full"
                                    >
                                         {isUploadingLogo ? (
                                              <>
@@ -132,9 +133,9 @@ export default function AdminGlobalSectionHeaderForm({ initialData, isLoading }:
                                    <button
                                         type="button"
                                         onClick={() => removeNav(index)}
-                                        className="btn btn-sm btn-error"
+                                        className="btn btn-error text-white"
                                    >
-                                        Remove
+                                        <X />
                                    </button>
                               </div>
                          ))}
@@ -142,7 +143,7 @@ export default function AdminGlobalSectionHeaderForm({ initialData, isLoading }:
                     <button
                          type="button"
                          onClick={() => appendNav({ label: "", link: "" })}
-                         className="btn btn-sm btn-ghost mt-3"
+                         className="btn btn-ghost mt-3"
                     >
                          + Add Navigation Item
                     </button>
