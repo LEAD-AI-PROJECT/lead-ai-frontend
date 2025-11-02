@@ -9,7 +9,9 @@ export const HomePublicationCardView = ({
      link,
      title,
 }: HomePublicationItemProps) => {
-     const shortDesc = typeof description === "string" ? description.substring(0, 100) + "..." : "";
+     const shortDesc = String(
+          typeof description === "string" ? description.substring(0, 100) + "..." : ""
+     );
 
      return (
           <div className="home-publication-card">

@@ -7,6 +7,8 @@ import { useContext, useEffect } from "react";
 import { constructUrl } from "@/data-services/utils/constructUrl";
 import { allQueries } from "@/data-services/queries";
 import { LoadingContext } from "@/components/provider/QueryProvider";
+import { showToast } from "@/lib/toast";
+import { useRouter } from "next/navigation";
 
 // Get token from cookies
 const getAuthToken = () => {
@@ -50,6 +52,7 @@ axiosInstance.interceptors.response.use(
      error => {
           // Check if error is due to expired token
           if (error.response?.status === 401 && !isRedirecting) {
+               const router = useRouter();
                const errorMessage = error.response?.data?.message;
                const hasToken = !!cookies.get("accessToken");
 
@@ -82,7 +85,7 @@ axiosInstance.interceptors.response.use(
 
                          // Redirect after 3 seconds
                          setTimeout(() => {
-                              window.location.href = "/auth/login";
+                              router.push("/auth/login");
                          }, 3000);
                     }
                }
@@ -148,12 +151,14 @@ const useQueryApiRequest = <T,>({
           }
 
           if (queryFetch.isError) {
-               if (config.errorNotification ?? true) {
-                    // showErrorNotification(
-                    //      config.errorNotificationMessage ??
-                    //           queryFetch.error.response?.data?.message ??
-                    //           queryFetch.error?.message
-                    // );
+               // Query error notification is OFF by default
+               if (config.errorNotification) {
+                    const errMsg =
+                         config.errorNotificationMessage ??
+                         queryFetch.error.response?.data?.message ??
+                         queryFetch.error?.message ??
+                         "❌ Failed to fetch data";
+                    showToast(errMsg, "error");
                }
           }
 
@@ -162,12 +167,13 @@ const useQueryApiRequest = <T,>({
                     onSuccess(queryFetch.data);
                }
 
-               if (config.successNotification ?? false) {
-                    // showSuccessNotification(
-                    //      config.successNotificationMessage ??
-                    //           (queryFetch.data as any).message ??
-                    //           "Success"
-                    // );
+               // Query success notification is OFF by default
+               if (config.successNotification) {
+                    const msg =
+                         config.successNotificationMessage ??
+                         (queryFetch.data as any).message ??
+                         "✅ Data loaded successfully";
+                    showToast(msg, "success");
                }
           }
      }, [

@@ -14,43 +14,86 @@
      flex-direction: column;
      gap: 1.25rem;
 
-     // Body: stack on mobile
+     // Body: 4-column grid layout
      .footerr-body {
           display: grid;
           grid-template-columns: 1fr;
           gap: 1.25rem;
 
-          .footerr-item {
+          .footerr-grid {
+               display: grid;
+               grid-template-columns: 1fr;
+               gap: 1.25rem;
+          }
+
+          // Left 3 columns for content items
+          .footerr-columns {
+               display: grid;
+               grid-template-columns: 1fr;
+               gap: 1.25rem;
+
+               .footerr-column {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.75rem;
+
+                    .title {
+                         font-weight: 600;
+                         font-size: 1.125rem;
+                    }
+
+                    .items {
+                         display: flex;
+                         flex-direction: column;
+                         gap: 0.5rem;
+
+                         .item-link {
+                              font-weight: 200;
+                              line-height: 1.4;
+                              color: rgba(255, 255, 255, 0.95);
+                              transition: color 0.2s, text-decoration 0.2s;
+                              text-decoration: none;
+
+                              &:hover {
+                                   color: #{color($palette, white)};
+                                   text-decoration: underline;
+                              }
+                         }
+                    }
+               }
+          }
+
+          // Right column (Column 4) for social section
+          .footerr-social-section {
                display: flex;
                flex-direction: column;
                gap: 0.75rem;
-               max-width: 100%;
 
                .title {
                     font-weight: 600;
                     font-size: 1.125rem;
                }
 
-               .sub {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 0.5rem;
-                    font-weight: 200; // very light for descriptions
+               .description {
+                    font-weight: 200;
                     line-height: 1.4;
                     color: rgba(255, 255, 255, 0.95);
                }
 
-               .social {
+               .social-links {
                     display: flex;
                     gap: 0.75rem;
                     margin-top: 0.5rem;
 
-                    .icon {
+                    .social-icon {
                          background-color: #{color($palette, white)};
                          cursor: pointer;
                          padding: 0.45rem;
                          border-radius: 10px;
                          transition: transform 0.18s, box-shadow 0.18s;
+                         display: inline-flex;
+                         align-items: center;
+                         justify-content: center;
 
                          &:hover {
                               transform: scale(1.08);
@@ -73,16 +116,20 @@
           color: rgba(255, 255, 255, 0.9);
      }
 
-     // Tablet: two-column grid for footerr body
+     // Tablet: expand to 2 columns on left
      @media (min-width: 768px) {
           padding: 3rem 2rem;
 
           .footerr-body {
-               grid-template-columns: repeat(2, 1fr);
-               gap: 2rem;
+               .footerr-grid {
+                    display: grid;
+                    grid-template-columns: 2fr 1fr;
+                    gap: 2rem;
+               }
 
-               .footerr-item {
-                    max-width: 28rem;
+               .footerr-columns {
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 2rem;
                }
           }
 
@@ -92,22 +139,35 @@
           }
      }
 
-     // Laptop and up: horizontal flex with items in a row
+     // Laptop and up: 4-column grid (3 for content + 1 for social)
      @media (min-width: 1024px) {
           padding: 3.5rem 6rem;
           gap: 2rem;
 
           .footerr-body {
-               display: flex;
-               flex-direction: row;
-               align-items: flex-start;
-               justify-content: space-between;
-               gap: 2.5rem;
-          }
+               .footerr-grid {
+                    display: grid;
+                    grid-template-columns: 3fr 1fr;
+                    gap: 3rem;
+                    align-items: flex-start;
+               }
 
-          .footerr-item {
-               flex: 1 1 0;
-               max-width: none;
+               .footerr-columns {
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 2.5rem;
+
+                    .footerr-column {
+                         max-width: none;
+                    }
+               }
+
+               .footerr-social-section {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.75rem;
+                    padding-top: 0.5rem; // slight alignment with columns title
+               }
           }
 
           .footerr-copyright {
@@ -122,7 +182,13 @@
           padding: 4rem 14rem;
 
           .footerr-body {
-               gap: 3rem;
+               .footerr-grid {
+                    gap: 4rem;
+               }
+
+               .footerr-columns {
+                    gap: 3rem;
+               }
           }
      }
 }

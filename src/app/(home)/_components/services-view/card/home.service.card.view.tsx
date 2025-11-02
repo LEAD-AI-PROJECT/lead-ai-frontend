@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { ServiceItemProps } from "./home.services.item";
 import arrowRight from "@public/assets/icon/arrow-right.svg";
 import Image from "next/image";
+import { ServiceItemProps } from "../home.services.item";
 
 export default function HomeServiceCard({ item }: Readonly<{ item: ServiceItemProps }>) {
      return (

@@ -131,3 +131,63 @@ button {
           transition: ease-in 0.2s;
      }
 }
+
+/* MDX Editor Fixes */
+.mdx-editor-wrapper {
+     /* Ensure wrapper doesn't create stacking context */
+     position: relative;
+     z-index: auto !important;
+
+     /* List styling */
+     [contenteditable="true"],
+     [role="textbox"] {
+          ul {
+               list-style-type: disc !important;
+               padding-left: 2.5rem !important;
+               margin: 1rem 0 !important;
+
+               li {
+                    display: list-item !important;
+                    list-style-position: outside !important;
+                    margin-bottom: 0.5rem !important;
+               }
+
+               ul {
+                    list-style-type: circle !important;
+
+                    ul {
+                         list-style-type: square !important;
+                    }
+               }
+          }
+
+          ol {
+               list-style-type: decimal !important;
+               padding-left: 2.5rem !important;
+               margin: 1rem 0 !important;
+
+               li {
+                    display: list-item !important;
+                    list-style-position: outside !important;
+                    margin-bottom: 0.5rem !important;
+               }
+          }
+     }
+}
+
+/* MDX Editor Dialogs - Nuclear approach for z-index */
+/* Target any div that's a direct child of body and might be a portal */
+body > div[style*="position"],
+body > div[role="dialog"],
+body > div[data-floating-ui-portal],
+body > div[data-radix-popper-content-wrapper] {
+     z-index: 99999 !important;
+}
+
+/* Target MDX editor specific dialogs */
+div[class*="_dialog"],
+div[class*="_linkDialog"],
+div[class*="_imageDialog"],
+div[class*="mdxeditor"] {
+     z-index: 99999 !important;
+}
