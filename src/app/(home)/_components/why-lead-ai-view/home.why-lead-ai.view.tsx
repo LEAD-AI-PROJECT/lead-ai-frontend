@@ -1,12 +1,46 @@
 "use client";
 import "../home.style.scss";
 import useHomeWhyLeadAI from "./home.why-lead-ai.hook";
+import MarkdownPreview from "@/components/markdown/markdown-preview";
+
 export default function HomeWhyLeadAIView() {
      const { data, isLoading } = useHomeWhyLeadAI();
+
+     if (isLoading) {
+          return (
+               <div className="lg:p-[3rem] md:p-[2rem] sm:p-[1rem] p-[10px]">
+                    <div className="home-why-ai">
+                         <div className="home-why-ai-header">
+                              <div className="skeleton h-10 w-3/4 mb-4"></div>
+                         </div>
+                         <div className="home-why-ai-content">
+                              <div className="home-why-ai-content-item">
+                                   <div className="grid lg:md:grid-cols-2 gap-1 sm:gap-2 md:gap-4 lg:gap-8 h-full">
+                                        <div className="grid gap-1 sm:gap-2 md:gap-4 lg:gap-8">
+                                             <div className="skeleton h-32"></div>
+                                             <div className="skeleton h-32"></div>
+                                        </div>
+                                        <div className="skeleton h-64"></div>
+                                   </div>
+                              </div>
+                              <div className="home-why-ai-content-item">
+                                   <div className="skeleton h-40 w-full"></div>
+                              </div>
+                         </div>
+                         <div className="home-why-ai-actions">
+                              <div className="skeleton h-10 w-48"></div>
+                         </div>
+                    </div>
+               </div>
+          );
+     }
+
      return (
           <div className="lg:p-[3rem] md:p-[2rem] sm:p-[1rem] p-[10px]">
                <div className="home-why-ai">
-                    <div className="home-why-ai-header">Why Lead.AI?</div>
+                    <div className="home-why-ai-header">
+                         <MarkdownPreview content={data?.title || ""} />
+                    </div>
                     <div className="home-why-ai-content">
                          <div className="home-why-ai-content-item">
                               <div className="grid lg:md:grid-cols-2 gap-1 sm:gap-2 md:gap-4 lg:gap-8 h-full">
@@ -27,23 +61,7 @@ export default function HomeWhyLeadAIView() {
                               </div>
                          </div>
                          <div className="home-why-ai-content-item">
-                              <div className="home-why-ai-content-title">
-                                   Smarter AI, less hassle. Cut 80% of the work and still
-                                   outperform.
-                              </div>
-                              <p className="">
-                                   Behind every high-performing AI model is datasets that’s been
-                                   handled with precision. At Lead AI, we believe the foundation of
-                                   great AI starts long before algorithms,  it starts with clean,
-                                   trusted, high-integrity data.
-                              </p>
-                              <p>
-                                   Powered by a patented method from the National University of
-                                   Singapore, our pipeline transforms messy, fragmented bioactivity
-                                   data into formats AI can actually learn from. In a recent cancer
-                                   drug discovery study case, our proprietary data cleaning pipeline
-                                   boosted AI model accuracy by 21.6%.
-                              </p>
+                              <MarkdownPreview content={data?.description || ""} />
                          </div>
                     </div>
                     <div className="home-why-ai-actions">

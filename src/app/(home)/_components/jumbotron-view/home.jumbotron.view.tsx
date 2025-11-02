@@ -4,29 +4,7 @@ import nusLogo from "@public/assets/img/home/nus-logo.svg";
 import Image from "next/image";
 import "../home.style.scss";
 import useHomeJumbotron from "./home.jumbotron.hook";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import rehypeRaw from "rehype-raw";
-
-// Render markdown that may include raw HTML (e.g. <span> tags).
-// We unescape backslashes inserted by the MDX editor, then parse markdown
-// into HTML while allowing raw HTML nodes via rehype-raw so line breaks
-// created with Enter are turned into paragraphs/<br> instead of disappearing.
-const HtmlContent = ({ children }: { children: string }) => {
-     // Unescape common escape sequences from MDX editor
-     let unescaped = (children || "")
-          .replaceAll("\\n", "\n") // Unescape newlines
-          .replaceAll("\\t", "\t") // Unescape tabs
-          .replaceAll("\\\\", "\\") // Unescape backslashes
-          .replaceAll('\\"', '"') // Unescape quotes
-          .replaceAll("\\'", "'"); // Unescape single quotes
-
-     return (
-          <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
-               {unescaped}
-          </ReactMarkdown>
-     );
-};
+import { HtmlContent } from "@/components/html/html-content";
 export default function HomeJumbotronView() {
      const { data, isLoading } = useHomeJumbotron();
 
