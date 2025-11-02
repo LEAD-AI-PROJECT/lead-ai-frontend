@@ -7,7 +7,7 @@ import { HomeSectionMenuResponse } from "@/types/menu-management/home-section";
 export const useHomePublicationHook = () => {
      // Fetch publications from API
 
-     const type = HomeSectionMenuEnum[HomeSectionMenuEnum.TRON]; // "TRON"
+     const type = HomeSectionMenuEnum[HomeSectionMenuEnum.PUBLICATION]; // "PUBLICATIONS"
 
      const { data, isLoading: isPublicationsLoading } = useQueryApiRequest<
           GlobalApiResponse<HomeSectionMenuResponse<any>>

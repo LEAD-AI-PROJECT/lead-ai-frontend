@@ -2,80 +2,27 @@
 import logo from "@public/assets/logo colour.png";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Menu, X } from "lucide-react";
 import { useNavbarHook } from "./navbar.hook";
 import "./navbar.style.scss";
 
 export default function NavbarView() {
-     const { navbarItem, handleAnchorClick, navRef, open, toggle, close, syncVars } =
-          useNavbarHook();
-
-     // track current hash so we can mark active links (e.g. #home)
-     const [currentHash, setCurrentHash] = useState<string>(() => {
-          if (typeof window === "undefined") return "";
-          return window.location.hash || "";
-     });
-
-     useEffect(() => {
-          const onHash = () => setCurrentHash(window.location.hash || "");
-          window.addEventListener("hashchange", onHash);
-          return () => window.removeEventListener("hashchange", onHash);
-     }, []);
-
-     // observe sections on the page and set active link when a section is in view
-     useEffect(() => {
-          if (typeof window === "undefined") return;
-
-          const ids = navbarItem
-               .map(i =>
-                    i.href && String(i.href).startsWith("#") ? String(i.href).substring(1) : null
-               )
-               .filter(Boolean) as string[];
-
-          const observed: Element[] = [];
-
-          const observer = new IntersectionObserver(
-               entries => {
-                    // pick the entry with the largest intersectionRatio that isIntersecting
-                    const visible = entries
-                         .filter(e => e.isIntersecting)
-                         .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-
-                    if (visible) {
-                         const id = visible.target.id;
-                         const hash = `#${id}`;
-                         if (hash !== currentHash) {
-                              // update visual active state
-                              setCurrentHash(hash);
-                              // update URL hash without adding a new history entry
-                              try {
-                                   history.replaceState(null, "", hash);
-                              } catch (e) {
-                                   /* ignore if unavailable */
-                              }
-                         }
-                    }
-               },
-               {
-                    // consider section visible when 50% of it is in viewport
-                    threshold: [0.5],
-               }
-          );
-
-          ids.forEach(id => {
-               const el = document.getElementById(id);
-               if (el) {
-                    observer.observe(el);
-                    observed.push(el);
-               }
-          });
-
-          return () => {
-               observed.forEach(el => observer.unobserve(el));
-               observer.disconnect();
-          };
-     }, [navbarItem, currentHash]);
+     const {
+          navbarItem,
+          handleAnchorClick,
+          navRef,
+          open,
+          toggle,
+          close,
+          syncVars,
+          logoData,
+          loginButtonData,
+          ctaButtonData,
+          currentHash,
+          setCurrentHash,
+          isMounted,
+     } = useNavbarHook();
 
      return (
           <>
@@ -92,15 +39,31 @@ export default function NavbarView() {
                          >
                               {open ? <X size={20} /> : <Menu size={20} />}
                          </button>
-                         <Image src={logo} width={200} alt="logo" />
-                    </div>
 
+                         {logoData ? (
+                              <Link href={logoData.link || "/"}>
+                                   <Image
+                                        src={logoData.link}
+                                        width={200}
+                                        height={60}
+                                        alt={logoData.label || "Logo"}
+                                        priority
+                                   />
+                              </Link>
+                         ) : (
+                              <Link href="/">
+                                   <Image src={logo} width={200} height={60} alt="Logo" priority />
+                              </Link>
+                         )}
+                    </div>{" "}
                     <div className="navbarr-item links">
                          {navbarItem.map(item => (
                               <Link
                                    key={item.label}
                                    className={`navbarr-link ${
-                                        currentHash === String(item.href) ? "active" : ""
+                                        isMounted && currentHash === String(item.href)
+                                             ? "active"
+                                             : ""
                                    }`}
                                    href={item.href}
                                    onClick={e => {
@@ -114,21 +77,27 @@ export default function NavbarView() {
                               </Link>
                          ))}
                     </div>
-
                     <div className="navbarr-item action">
                          <Link
-                              href="#login"
+                              href={loginButtonData?.link || "#login"}
                               className="navbarr-link"
                               onClick={e => {
-                                   handleAnchorClick(e.nativeEvent, "#login");
+                                   handleAnchorClick(
+                                        e.nativeEvent,
+                                        loginButtonData?.link || "#login"
+                                   );
                                    close();
                               }}
                          >
-                              Login
+                              {loginButtonData?.label || "Login"}
                          </Link>
-                         <button className="primary" onClick={close}>
-                              Try Lead.AI
-                         </button>
+                         <Link
+                              href={ctaButtonData?.link || "#"}
+                              className="primary"
+                              onClick={close}
+                         >
+                              {ctaButtonData?.label || "Try Lead.AI"}
+                         </Link>
                     </div>
                </div>
 
@@ -141,13 +110,13 @@ export default function NavbarView() {
                     aria-label="Close navigation overlay"
                />
 
-               {/* Dropdown “di belakang” navbarr */}
+               {/* Dropdown "di belakang" navbarr */}
                <div className={`nav-dropdown ${open ? "active" : ""}`} role="menu">
                     {navbarItem.map(item => (
                          <Link
                               key={`dd-${item.label}`}
                               className={`navbarr-link ${
-                                   currentHash === String(item.href) ? "active" : ""
+                                   isMounted && currentHash === String(item.href) ? "active" : ""
                               }`}
                               href={item.href}
                               onClick={e => {
@@ -164,18 +133,25 @@ export default function NavbarView() {
                     {/* muncul hanya di Mobile L via CSS */}
                     <div className="dropdown-actions">
                          <Link
-                              href="#login"
+                              href={loginButtonData?.link || "#login"}
                               className="navbarr-link"
                               onClick={e => {
-                                   handleAnchorClick(e.nativeEvent, "#login");
+                                   handleAnchorClick(
+                                        e.nativeEvent,
+                                        loginButtonData?.link || "#login"
+                                   );
                                    close();
                               }}
                          >
-                              Login
+                              {loginButtonData?.label || "Login"}
                          </Link>
-                         <button className="primary" onClick={close}>
-                              Try Lead.AI
-                         </button>
+                         <Link
+                              href={ctaButtonData?.link || "#"}
+                              className="primary"
+                              onClick={close}
+                         >
+                              {ctaButtonData?.label || "Try Lead.AI"}
+                         </Link>
                     </div>
                </div>
           </>

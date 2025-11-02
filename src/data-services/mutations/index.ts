@@ -5,6 +5,10 @@ import { PublicationKeys, publicationMutations } from "./publication";
 import { FormLandingPageKeys, formLandingPageMutations } from "./form-landingpage";
 import { UserMutationKeys, userMutations } from "./user";
 import { HomeSectionMutationKeys, homeSectionMutations } from "./menu-management/home-section";
+import {
+     GlobalSectionMutationKeys,
+     globalSectionMutations,
+} from "./menu-management/global-section";
 
 export type AllMutationKeys =
      | AuthKeys
@@ -12,7 +16,8 @@ export type AllMutationKeys =
      | PublicationKeys
      | FormLandingPageKeys
      | UserMutationKeys
-     | HomeSectionMutationKeys;
+     | HomeSectionMutationKeys
+     | GlobalSectionMutationKeys;
 
 export const allMutations: MutationDataService<AllMutationKeys> = {
      ...authMutations,
@@ -21,4 +26,5 @@ export const allMutations: MutationDataService<AllMutationKeys> = {
      ...formLandingPageMutations,
      ...userMutations,
      ...homeSectionMutations,
+     ...globalSectionMutations,
 };

@@ -6,6 +6,7 @@ import { formLandingPageQueries, FormLandingPageQueryKeys } from "./form-landing
 import { dashboardQueries, DashboardQueryKeys } from "./dashboard";
 import { userQueries, UserQueryKeys } from "./user";
 import { homeSectionQueries, HomeSectionQueryKeys } from "./menu-management/home-section";
+import { globalSectionQueries, GlobalSectionQueryKeys } from "./menu-management/global-section";
 
 export type AllQueryKeys =
      | AuthQueryKeys
@@ -14,7 +15,8 @@ export type AllQueryKeys =
      | FormLandingPageQueryKeys
      | DashboardQueryKeys
      | UserQueryKeys
-     | HomeSectionQueryKeys;
+     | HomeSectionQueryKeys
+     | GlobalSectionQueryKeys;
 
 export const allQueries: QueriesDataService<AllQueryKeys> = {
      ...authQueries,
@@ -24,4 +26,5 @@ export const allQueries: QueriesDataService<AllQueryKeys> = {
      ...dashboardQueries,
      ...userQueries,
      ...homeSectionQueries,
+     ...globalSectionQueries,
 };
