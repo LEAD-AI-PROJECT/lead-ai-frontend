@@ -1,3 +1,6 @@
+import { GlobalApiResponse } from "@/hooks/react-query/GlobalApiResponse";
+import useQueryApiRequest from "@/hooks/react-query/useQueryApiRequest";
+import { NewsEventResponseType } from "@/types/news-event";
 import { useEffect, useRef, useState } from "react";
 
 export const useHomeNewsEventHook = () => {
@@ -7,6 +10,8 @@ export const useHomeNewsEventHook = () => {
      const startX = useRef(0);
      const scrollLeft = useRef(0);
      const [canScrollPrev, setCanScrollPrev] = useState(false);
+
+     // Use dummy data
 
      function updateButtons() {
           const el = trackRef.current;
@@ -77,6 +82,12 @@ export const useHomeNewsEventHook = () => {
           setTimeout(updateButtons, 150);
      }
 
+     const { data: fetchNewsEvents, isLoading: isLoadingNewsEvents } = useQueryApiRequest<
+          GlobalApiResponse<NewsEventResponseType[]>
+     >({
+          key: "NewsEvent_FindPublished",
+     });
+
      return {
           trackRef,
           titleRef,
@@ -86,5 +97,7 @@ export const useHomeNewsEventHook = () => {
           onPointerMove,
           onPointerUp,
           onWheel,
+          newsEvents: fetchNewsEvents?.data ?? [],
+          isLoadingNewsEvents,
      };
 };

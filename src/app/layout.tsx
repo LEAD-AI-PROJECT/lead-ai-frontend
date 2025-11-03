@@ -16,11 +16,11 @@ export default function RootLayout({
      return (
           <html lang="en" data-theme="light">
                <body>
-                    <MainProvider>
-                         <QueryProvider>
+                    <QueryProvider>
+                         <MainProvider>
                               <div className="body-item">{children}</div>
-                         </QueryProvider>
-                    </MainProvider>
+                         </MainProvider>
+                    </QueryProvider>
                </body>
           </html>
      );

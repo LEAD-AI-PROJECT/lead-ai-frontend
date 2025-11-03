@@ -1,12 +1,112 @@
+"use client";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { navbarItem } from "./navbar.item";
+import useQueryApiRequest from "@/hooks/react-query/useQueryApiRequest";
+import { GlobalApiResponse } from "@/hooks/react-query/GlobalApiResponse";
+import { HeaderContent, GlobalSectionMenuResponse } from "@/types/menu-management/global-section";
+import { navbarItem as defaultNavbarItem } from "./navbar.item";
 
 export const useNavbarHook = () => {
      const [open, setOpen] = useState(false);
      const navRef = useRef<HTMLDivElement>(null);
+     const [currentHash, setCurrentHash] = useState<string>("");
+     const [isMounted, setIsMounted] = useState(false);
+
+     // Fetch header data from backend
+     const {
+          data: response,
+          isLoading,
+          isError,
+     } = useQueryApiRequest<GlobalApiResponse<GlobalSectionMenuResponse>>({
+          key: "GlobalSection_FindByType",
+          params: {
+               type: "HEADER",
+          },
+     });
+
+     const headerData = (response?.data?.content as HeaderContent) || undefined;
+
+     // Convert header navItems to navbar format
+     const navbarItem =
+          headerData?.navItems?.map(item => ({
+               label: item.label,
+               href: item.link,
+               icon: "",
+          })) || defaultNavbarItem;
+
+     // Extract button and logo data
+     const logoData = headerData?.logo;
+     const loginButtonData = headerData?.loginButton;
+     const ctaButtonData = headerData?.cta;
 
      const toggle = () => setOpen(v => !v);
      const close = () => setOpen(false);
+
+     // Initialize hash on mount to prevent hydration mismatch
+     useEffect(() => {
+          setCurrentHash(window.location.hash || "");
+          setIsMounted(true);
+     }, []);
+
+     // Listen to hash changes
+     useEffect(() => {
+          const onHash = () => setCurrentHash(window.location.hash || "");
+          window.addEventListener("hashchange", onHash);
+          return () => window.removeEventListener("hashchange", onHash);
+     }, []);
+
+     // observe sections on the page and set active link when a section is in view
+     useEffect(() => {
+          if (typeof window === "undefined") return;
+
+          const ids = navbarItem
+               .map(i =>
+                    i.href && String(i.href).startsWith("#") ? String(i.href).substring(1) : null
+               )
+               .filter(Boolean) as string[];
+
+          const observed: Element[] = [];
+
+          const observer = new IntersectionObserver(
+               entries => {
+                    // pick the entry with the largest intersectionRatio that isIntersecting
+                    const visible = entries
+                         .filter(e => e.isIntersecting)
+                         .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+                    if (visible) {
+                         const id = visible.target.id;
+                         const hash = `#${id}`;
+                         if (hash !== currentHash) {
+                              // update visual active state
+                              setCurrentHash(hash);
+                              // update URL hash without adding a new history entry
+                              try {
+                                   history.replaceState(null, "", hash);
+                              } catch (e) {
+                                   /* ignore if unavailable */
+                              }
+                         }
+                    }
+               },
+               {
+                    // consider section visible when 50% of it is in viewport
+                    threshold: [0.5],
+               }
+          );
+
+          ids.forEach(id => {
+               const el = document.getElementById(id);
+               if (el) {
+                    observer.observe(el);
+                    observed.push(el);
+               }
+          });
+
+          return () => {
+               observed.forEach(el => observer.unobserve(el));
+               observer.disconnect();
+          };
+     }, [navbarItem, currentHash]);
 
      // hitung CSS vars: --navbar-h, --nav-left, --nav-right
      const syncVars = () => {
@@ -82,5 +182,14 @@ export const useNavbarHook = () => {
           toggle,
           close,
           syncVars,
+          logoData,
+          loginButtonData,
+          ctaButtonData,
+          currentHash,
+          setCurrentHash,
+          isMounted,
+          headerData,
+          isLoading,
+          isError,
      };
 };

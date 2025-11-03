@@ -2,63 +2,174 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { NewsEventUpsertSchema } from "./_components/config";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useMutationApiRequest from "@/hooks/react-query/useMutationApiRequest";
+import useQueryApiRequest from "@/hooks/react-query/useQueryApiRequest";
 import { GlobalApiResponse } from "@/hooks/react-query/GlobalApiResponse";
+import { NewsEventResponseType } from "@/types/news-event";
+import { useRouter } from "next/navigation";
+import dayjs from "dayjs";
+import { InferType } from "yup";
 
-export default function useAdminNewsEventUpsertHook() {
-     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+export default function useAdminNewsEventUpsertHook(slug?: string) {
+     const router = useRouter();
+     const [imageUrls, setImageUrls] = useState<string[]>([]);
+     const [uploadingImages, setUploadingImages] = useState(false);
+     const isEditMode = !!slug;
+
+     // Fetch existing data if editing
+     const { data: newsEventData, isLoading } = useQueryApiRequest<
+          GlobalApiResponse<NewsEventResponseType>
+     >({
+          key: "NewsEvent_FindById",
+          params: { id: slug || "" },
+          options: {
+               enabled: isEditMode, // Only fetch if slug exists
+          },
+     });
+
      const {
           register,
           handleSubmit,
           formState: { errors, isSubmitting },
           control,
-          getValues,
           setValue,
+          reset,
      } = useForm({
           resolver: yupResolver(NewsEventUpsertSchema),
-          mode: "onSubmit", // or "onChange" kalau mau realtime
+          defaultValues: {
+               title: "",
+               content: "",
+               eventDate: "",
+               link: "",
+          },
      });
 
-     const { mutateAsync: create } = useMutationApiRequest<
-          GlobalApiResponse<any>,
-          typeof NewsEventUpsertSchema
+     // Populate form when editing
+     useEffect(() => {
+          if (isEditMode && newsEventData?.data) {
+               const data = newsEventData.data;
+
+               // Format eventDate to datetime-local format (YYYY-MM-DDTHH:mm)
+               // Backend returns ISO string, convert to datetime-local input format
+               const formattedEventDate = data.eventDate
+                    ? dayjs(data.eventDate).format("YYYY-MM-DDTHH:mm")
+                    : "";
+
+               reset({
+                    title: data.title,
+                    content: data.content,
+                    eventDate: formattedEventDate,
+                    link: data.link,
+               });
+
+               // Set existing image URLs
+               const existingUrls = data.images?.map(img => img.imageUrl) || [];
+               setImageUrls(existingUrls);
+          }
+     }, [isEditMode, newsEventData, reset]);
+     const createMutation = useMutationApiRequest<
+          GlobalApiResponse<NewsEventResponseType>,
+          InferType<typeof NewsEventUpsertSchema>
      >({
           key: "NewsEvent_Create",
+          options: {
+               onSuccess: () => {
+                    router.push("/admin/news-event");
+               },
+          },
      });
 
-     const onSubmit = () => {
-          const value = getValues();
-          console.log("submit", value);
+     const updateMutation = useMutationApiRequest<
+          GlobalApiResponse<NewsEventResponseType>,
+          InferType<typeof NewsEventUpsertSchema>
+     >({
+          key: "NewsEvent_Update",
+          params: { id: slug || "" },
+          options: {
+               onSuccess: () => {
+                    router.push("/admin/news-event");
+               },
+          },
+     });
+
+     const uploadImageMutation = useMutationApiRequest<
+          GlobalApiResponse<{ url: string; fileId: string }>,
+          FormData
+     >({
+          key: "NewsEvent_UploadImage",
+     });
+
+     const onSubmit = async (data: InferType<typeof NewsEventUpsertSchema>) => {
+          // Convert datetime-local format to ISO string for backend
+          const eventDateISO = data.eventDate ? dayjs(data.eventDate).toISOString() : undefined;
+
+          const payload: InferType<typeof NewsEventUpsertSchema> = {
+               ...data,
+               eventDate: eventDateISO,
+               images: imageUrls.length > 0 ? imageUrls : undefined,
+          };
+
+          // Use update or create mutation based on mode
+          if (isEditMode) {
+               updateMutation.mutate(payload);
+          } else {
+               createMutation.mutate(payload);
+          }
      };
 
      const onFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-          const file = e.target.files?.[0];
-          if (!file) return;
+          const files = Array.from(e.target.files || []);
+          if (files.length === 0) return;
 
-          // create object URL for quick preview
-          const objectUrl = URL.createObjectURL(file);
-          setPreviewUrl(objectUrl);
+          setUploadingImages(true);
 
-          // also read file as data URL for form submission (base64)
-          const reader = new FileReader();
-          reader.onload = () => {
-               const result = reader.result as string | null;
-               if (result) {
-                    // set the img_url form field to the base64 data URL
-                    setValue("img_url", result);
+          try {
+               const uploadedUrls: string[] = [];
+
+               for (const file of files) {
+                    const formData = new FormData();
+                    formData.append("file", file);
+
+                    // Upload using mutation
+                    const response = await uploadImageMutation.mutateAsync(formData);
+
+                    if (response?.data?.url) {
+                         uploadedUrls.push(response.data.url);
+                    }
                }
-          };
-          reader.readAsDataURL(file);
+
+               setImageUrls(prev => [...prev, ...uploadedUrls]);
+          } catch (error) {
+               console.error("Failed to upload images:", error);
+          } finally {
+               setUploadingImages(false);
+               // Reset file input
+               e.target.value = "";
+          }
      };
+
+     const removeImage = (url: string) => {
+          setImageUrls(prev => prev.filter(imgUrl => imgUrl !== url));
+     };
+
      return {
           register,
-          handleSubmit: handleSubmit(onSubmit), // wrap with onSubmit
+          handleSubmit: handleSubmit(onSubmit),
           errors,
-          isSubmitting,
+          isSubmitting:
+               isSubmitting ||
+               createMutation.isPending ||
+               updateMutation.isPending ||
+               uploadingImages,
           control,
           setValue,
-          previewUrl,
+          imageUrls,
+          uploadingImages,
           onFileChange,
+          removeImage,
+          router,
+          isEditMode,
+          isLoading,
      };
 }
