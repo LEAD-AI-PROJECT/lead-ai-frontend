@@ -2,9 +2,10 @@ import React from "react";
 
 export interface ServiceItemProps {
      class: "v1" | "v2" | "v3";
-     title: React.ReactNode;
-     description: React.ReactNode;
+     title: React.ReactNode | string;
+     description: React.ReactNode | string;
      link: string;
+     variant?: "v1" | "v2" | "v3"; // Added for backend compatibility
 }
 
 export const serviceItems: ServiceItemProps[] = [

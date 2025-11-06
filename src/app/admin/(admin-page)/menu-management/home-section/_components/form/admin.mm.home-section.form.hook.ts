@@ -1,6 +1,7 @@
 "use client";
 import useMutationApiRequest from "@/hooks/react-query/useMutationApiRequest";
 import { HomeSectionMenuEnum } from "@/types/enums/menu.enum";
+import { HomeSectionOptionSection } from "@/types/menu-management/home-section";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
@@ -11,12 +12,14 @@ interface UseAdminMenuManagementHomeSectionFormProps {
      initialData?: {
           title: string;
           description?: string | null;
+          optionSection?: HomeSectionOptionSection | null;
      };
 }
 
 type FormData = {
      title: string;
      description: string | null;
+     optionSection?: HomeSectionOptionSection | null;
 };
 
 export default function useAdminMenuManagementHomeSectionForm({
@@ -28,6 +31,7 @@ export default function useAdminMenuManagementHomeSectionForm({
           defaultValues: {
                title: initialData?.title || "",
                description: initialData?.description || null,
+               optionSection: initialData?.optionSection || null,
           },
      });
 
@@ -37,6 +41,7 @@ export default function useAdminMenuManagementHomeSectionForm({
                form.reset({
                     title: initialData.title || "",
                     description: initialData.description || "",
+                    optionSection: initialData.optionSection || null,
                });
           }
      }, [initialData, form]);
@@ -58,6 +63,7 @@ export default function useAdminMenuManagementHomeSectionForm({
           upsertHomeSection({
                title: data.title,
                description: data.description || null,
+               optionSection: data.optionSection || null,
           });
      });
 
@@ -65,5 +71,6 @@ export default function useAdminMenuManagementHomeSectionForm({
           form,
           onSubmit,
           isPending,
+          type,
      };
 }

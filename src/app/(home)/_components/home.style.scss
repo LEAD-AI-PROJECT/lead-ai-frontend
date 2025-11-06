@@ -665,6 +665,7 @@
      border-radius: 16px;
      width: 100%;
      overflow: hidden;
+     min-height: 300px;
 
      &.v1 {
           background: linear-gradient(to right, #8c52ff, #2e0a75);
@@ -683,12 +684,41 @@
                font-size: 20px;
                line-height: 50px;
                font-weight: 600;
+
+               // Override markdown prose styles
+               p,
+               h1,
+               h2,
+               h3,
+               h4,
+               h5,
+               h6 {
+                    margin: 0;
+                    padding: 0;
+                    color: white;
+                    font-weight: 600;
+               }
           }
 
           .description {
                font-size: 14px;
                font-weight: 300;
                color: white;
+
+               // Override markdown prose styles
+               p,
+               ul,
+               ol,
+               li {
+                    margin: 0.25rem 0;
+                    padding: 0;
+                    color: white;
+                    font-weight: 300;
+               }
+
+               strong {
+                    font-weight: 600;
+               }
           }
      }
 
@@ -750,6 +780,7 @@
      // laptop and up
      @media (min-width: 1024px) {
           padding: 2rem 2rem;
+          height: 100%; // Make cards fill their container height
 
           .content .title {
                font-size: 40px;
@@ -762,10 +793,6 @@
      // large desktop
      @media (min-width: 1440px) {
           padding: 2rem 2.25rem;
-
-          &.v2 {
-               width: 800px;
-          }
 
           .content .title {
                font-size: 48px;
