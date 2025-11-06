@@ -1,5 +1,5 @@
 "use client";
-import { forwardRef, useRef, useState } from "react";
+import { forwardRef, useRef, useState, useEffect } from "react";
 import MarkdownPreview from "../markdown/markdown-preview";
 
 interface SplitMarkdownEditorProps {
@@ -12,8 +12,14 @@ interface SplitMarkdownEditorProps {
 const SplitMarkdownEditor = forwardRef<HTMLTextAreaElement, SplitMarkdownEditorProps>(
      ({ value, onChange, placeholder = "Write markdown here...", readOnly = false }, ref) => {
           const textareaRef = useRef<HTMLTextAreaElement>(null);
+          const [localValue, setLocalValue] = useState(value);
           const [history, setHistory] = useState<string[]>([value]);
           const [historyIndex, setHistoryIndex] = useState(0);
+
+          // Sync external value changes
+          useEffect(() => {
+               setLocalValue(value);
+          }, [value]);
 
           const insertMarkdown = (before: string, after: string = "") => {
                const textarea = textareaRef.current;
@@ -21,25 +27,25 @@ const SplitMarkdownEditor = forwardRef<HTMLTextAreaElement, SplitMarkdownEditorP
 
                const start = textarea.selectionStart;
                const end = textarea.selectionEnd;
-               const selectedText = value.substring(start, end) || "text";
+               const selectedText = localValue.substring(start, end) || "text";
 
                // For list items, ensure they start on a new line
                let prefix = "";
                if ((before === "1. " || before === "- " || before === "# ") && start > 0) {
                     // Check if we're not already at the start of a line
-                    const charBefore = value[start - 1];
+                    const charBefore = localValue[start - 1];
                     if (charBefore && charBefore !== "\n") {
                          prefix = "\n";
                     }
                }
 
                const newValue =
-                    value.substring(0, start) +
+                    localValue.substring(0, start) +
                     prefix +
                     before +
                     selectedText +
                     after +
-                    value.substring(end);
+                    localValue.substring(end);
 
                updateHistory(newValue);
 
@@ -56,6 +62,12 @@ const SplitMarkdownEditor = forwardRef<HTMLTextAreaElement, SplitMarkdownEditorP
                newHistory.push(newValue);
                setHistory(newHistory);
                setHistoryIndex(newHistory.length - 1);
+               setLocalValue(newValue);
+               onChange(newValue);
+          };
+
+          const handleChange = (newValue: string) => {
+               setLocalValue(newValue);
                onChange(newValue);
           };
 
@@ -82,8 +94,8 @@ const SplitMarkdownEditor = forwardRef<HTMLTextAreaElement, SplitMarkdownEditorP
                     if (!textarea) return;
 
                     const start = textarea.selectionStart;
-                    const lineStart = value.lastIndexOf("\n", start - 1) + 1;
-                    const currentLine = value.substring(lineStart, start);
+                    const lineStart = localValue.lastIndexOf("\n", start - 1) + 1;
+                    const currentLine = localValue.substring(lineStart, start);
 
                     // Check if current line is numbered list (e.g., "1. ", "2. ")
                     const numberedListMatch = currentLine.match(/^(\d+)\.\s+/);
@@ -91,11 +103,11 @@ const SplitMarkdownEditor = forwardRef<HTMLTextAreaElement, SplitMarkdownEditorP
                          e.preventDefault();
                          const nextNumber = parseInt(numberedListMatch[1]) + 1;
                          const newValue =
-                              value.substring(0, start) +
+                              localValue.substring(0, start) +
                               "\n" +
                               nextNumber +
                               ". " +
-                              value.substring(start);
+                              localValue.substring(start);
                          updateHistory(newValue);
 
                          setTimeout(() => {
@@ -111,7 +123,7 @@ const SplitMarkdownEditor = forwardRef<HTMLTextAreaElement, SplitMarkdownEditorP
                     if (currentLine.match(/^-\s+/)) {
                          e.preventDefault();
                          const newValue =
-                              value.substring(0, start) + "\n- " + value.substring(start);
+                              localValue.substring(0, start) + "\n- " + localValue.substring(start);
                          updateHistory(newValue);
 
                          setTimeout(() => {
@@ -251,8 +263,8 @@ const SplitMarkdownEditor = forwardRef<HTMLTextAreaElement, SplitMarkdownEditorP
                               </div>
                               <textarea
                                    ref={textareaRef}
-                                   value={value}
-                                   onChange={e => updateHistory(e.target.value)}
+                                   value={localValue}
+                                   onChange={e => handleChange(e.target.value)}
                                    onKeyDown={handleKeyDown}
                                    placeholder={placeholder}
                                    readOnly={readOnly}
@@ -266,7 +278,7 @@ const SplitMarkdownEditor = forwardRef<HTMLTextAreaElement, SplitMarkdownEditorP
                                    👁️ Preview
                               </div>
                               <div className="flex-1 overflow-auto p-4">
-                                   <MarkdownPreview content={value} />
+                                   <MarkdownPreview content={localValue} />
                               </div>
                          </div>
                     </div>

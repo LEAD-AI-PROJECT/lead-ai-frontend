@@ -66,11 +66,34 @@ export default function useAdminMenuManagementHomeSection() {
           refetch();
      }, [backendType, refetch]);
 
+     // Parse optionSection from JSON string to object
+     const parsedHomeSection = useMemo(() => {
+          if (!homeSection?.data) return undefined;
+
+          const data = homeSection.data;
+          let parsedOptionSection = data.optionSection;
+
+          // If optionSection is a string, parse it
+          if (typeof parsedOptionSection === "string") {
+               try {
+                    parsedOptionSection = JSON.parse(parsedOptionSection);
+               } catch (e) {
+                    console.error("Failed to parse optionSection:", e);
+                    parsedOptionSection = null;
+               }
+          }
+
+          return {
+               ...data,
+               optionSection: parsedOptionSection,
+          };
+     }, [homeSection]);
+
      return {
           activeTab,
           tabs,
           handleTabChange,
-          homeSection: homeSection?.data,
+          homeSection: parsedHomeSection,
           isLoading,
      };
 }
