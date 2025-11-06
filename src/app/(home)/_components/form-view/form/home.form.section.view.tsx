@@ -81,7 +81,7 @@ export default function HomeFormSectionView() {
                               required
                               maxLength={15}
                               pattern="[0-9]*"
-                              startAdornment={"+65"}
+                              // startAdornment={"+65"}
                               {...register("phone")}
                          />
                          {errors?.phone && (

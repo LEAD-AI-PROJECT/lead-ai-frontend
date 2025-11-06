@@ -60,14 +60,20 @@ export default function HomeSolutionView() {
                               />
                          </div>
                          <div className="home-solution-content-subtitle">
-                              Get early access and see how it worked before anyone else
+                              <MarkdownPreview
+                                   content={
+                                        data?.optionSection?.subtitle ||
+                                        "Get early access and see how it worked before anyone else"
+                                   }
+                                   textColor="text-white"
+                              />
                          </div>
                          <div className="home-solution-content-action">
                               <Link
-                                   href={"#"}
+                                   href={data?.optionSection?.action?.link || "#"}
                                    className="lg:text-4xl md:text-3xl text-2xl m-2 mt-6"
                               >
-                                   Join the Waitlist {`>`}
+                                   {data?.optionSection?.action?.text || "Join the Waitlist"} {`>`}
                               </Link>
                          </div>
                     </div>

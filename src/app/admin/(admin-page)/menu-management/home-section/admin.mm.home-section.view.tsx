@@ -52,6 +52,7 @@ export default function AdminMenuManagementHomeSectionView() {
                                         initialData={{
                                              title: homeSection?.title || "",
                                              description: homeSection?.description || null,
+                                             optionSection: homeSection?.optionSection || null,
                                         }}
                                    />
                               )}
