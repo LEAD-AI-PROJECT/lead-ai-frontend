@@ -14,8 +14,8 @@ set -euo pipefail
 # ---------------------------
 APP_NAME="landing-page"
 DOMAIN="aileadyou.com"
-REPO_URL="git@github.com:AI-Lead-You/lead-ai-frontend.git"
-REPO_BRANCH="main"
+REPO_URL="git@github.com:LEAD-AI-PROJECT/lead-ai-frontend.git"
+REPO_BRANCH="production"
 PORT="3000"
 NODE_MAJOR="22"
 APP_USER="deploy"
