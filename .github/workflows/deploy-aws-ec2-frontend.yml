@@ -1,0 +1,49 @@
+name: Deploy Frontend to AWS EC2
+
+on:
+  push:
+    branches: ["production"]
+
+concurrency:
+  group: frontend-aws-ec2-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Copy deploy script to EC2
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          source: |
+            deploy.sh
+          target: /home/ubuntu/lead-ai-frontend
+
+      - name: Run frontend deploy script on EC2
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          script: |
+            set -e
+            APP_ROOT="/home/ubuntu/lead-ai-frontend"
+
+            if [ ! -d "$APP_ROOT" ]; then
+              mkdir -p "$APP_ROOT"
+            fi
+
+            cd "$APP_ROOT"
+            chmod +x deploy.sh
+
+            # Run deploy script as root (required by deploy.sh)
+            sudo bash deploy.sh
