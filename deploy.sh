@@ -159,9 +159,11 @@ clone_build_release() {
 
   log "Building Next.js app..."
   if [[ -f "${ENV_FILE}" ]]; then
-    set -a; source "${ENV_FILE}"; set +a
+    log "Loading env from ${ENV_FILE} for build as ${APP_USER}"
+    su - "${APP_USER}" -c "cd '${new_release}' && set -a && source '${ENV_FILE}' && set +a && npm run build"
+  else
+    su - "${APP_USER}" -c "cd '${new_release}' && npm run build"
   fi
-  su - "${APP_USER}" -c "cd '${new_release}' && npm run build"
 
   log "Linking current -> ${new_release}"
   ln -sfn "${new_release}" "${CURRENT_LINK}"
