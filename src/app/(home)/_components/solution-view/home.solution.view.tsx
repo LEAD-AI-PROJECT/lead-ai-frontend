@@ -8,7 +8,7 @@ import MarkdownPreview from "@/components/markdown/markdown-preview";
 export default function HomeSolutionView() {
      const { data, isLoading } = useHomeSolution();
 
-     if (isLoading) {
+     if (isLoading || !data) {
           return (
                <div id="solutions" className="home-solution">
                     <div className="home-solution-content">
