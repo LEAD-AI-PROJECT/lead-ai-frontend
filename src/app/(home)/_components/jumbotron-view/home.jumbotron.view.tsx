@@ -8,7 +8,7 @@ import { HtmlContent } from "@/components/html/html-content";
 export default function HomeJumbotronView() {
      const { data, isLoading } = useHomeJumbotron();
 
-     if (isLoading) {
+     if (isLoading || !data) {
           return (
                <div id="home" className="lg:p-[3rem] md:p-[2rem] sm:p-[1rem] p-[10px]">
                     <div className="home-jumbotron">

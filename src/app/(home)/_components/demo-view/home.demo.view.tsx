@@ -7,7 +7,7 @@ import useHomeDemo from "./home.demo.hook";
 export default function HomeDemoView() {
      const { data, isLoading } = useHomeDemo();
 
-     if (isLoading) {
+     if (isLoading || !data) {
           return (
                <div className="lg:py-[3rem] md:py-[2rem] sm:py-[1rem] py-[10px] lg:px-[8rem] md:px-[2rem] sm:px-[1rem] px-[10px] bg-white">
                     <div className="home-demo">

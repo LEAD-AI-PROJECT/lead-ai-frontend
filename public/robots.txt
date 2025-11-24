@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://aileadyou.com/sitemap.xml

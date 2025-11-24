@@ -16,7 +16,7 @@ export default function HomeServicesView() {
      // Remaining services (smaller cards in row below)
      const remainingServices = services.slice(1);
 
-     if (isLoading) {
+     if (isLoading || !data) {
           return (
                <div id="services" className="lg:p-[3rem] md:p-[2rem] sm:p-[1rem] p-[10px]">
                     <div className="home-services">
