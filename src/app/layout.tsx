@@ -28,38 +28,35 @@ export default function RootLayout({
                     <link rel="canonical" href="https://aileadyou.com/" />
                     <meta name="robots" content="index, follow" />
                     {/* Google Site Verification */}
-                    <head>
-                         <link rel="canonical" href="https://aileadyou.com/" />
-                         <meta name="robots" content="index, follow" />
-                         {/* Google Site Verification */}
-                         <meta
-                              name="google-site-verification"
-                              content="2S6PysNiyxVMmLiI6mGByftMpDqgjwzbaKkBxOg62Nk"
-                         />
-                         {/* Google Tag Manager */}
-                         <Script id="gtm-head" strategy="afterInteractive">
-                              {`
+
+                    {/* Google Site Verification */}
+                    <meta
+                         name="google-site-verification"
+                         content="2S6PysNiyxVMmLiI6mGByftMpDqgjwzbaKkBxOg62Nk"
+                    />
+                    {/* Google Tag Manager */}
+                    <Script id="gtm-head" strategy="afterInteractive">
+                         {`
                               (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
                               new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
                               j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                               'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
                               })(window,document,'script','dataLayer','GTM-MQNJTHNR');
                               `}
-                         </Script>
-                    </head>
+                    </Script>
                </head>
                <body>
                     <QueryProvider>
                          <body>
                               {/* Google Tag Manager (noscript) */}
-                              <noscript>
+                              {/* <noscript>
                                    <iframe
                                         src="https://www.googletagmanager.com/ns.html?id=GTM-MQNJTHNR"
                                         height="0"
                                         width="0"
                                         style={{ display: "none", visibility: "hidden" }}
                                    ></iframe>
-                              </noscript>
+                              </noscript> */}
                               <QueryProvider>
                                    <MainProvider>
                                         <div className="body-item">{children}</div>
