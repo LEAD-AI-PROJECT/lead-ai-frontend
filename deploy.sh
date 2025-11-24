@@ -308,8 +308,9 @@ write_start_wrapper
 write_ecosystem
 pm2_start_enable
 
-write_nginx_site
-obtain_tls
+# Nginx & TLS are now managed manually; avoid overwriting existing config
+# write_nginx_site
+# obtain_tls
 cleanup_old_releases
 post_deploy
 
