@@ -27,7 +27,7 @@ export default function FooterView() {
      const { footerData, isLoading, isError } = useFooterHook();
 
      // Show loading state
-     if (isLoading) {
+     if (isLoading || !footerData) {
           return (
                <div className="footerr-loading">
                     <div>Loading footer...</div>
