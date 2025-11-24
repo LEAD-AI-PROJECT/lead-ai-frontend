@@ -46,23 +46,21 @@ export default function RootLayout({
                     </Script>
                </head>
                <body>
+                    {/* Google Tag Manager (noscript) */}
+                    <noscript>
+                         <iframe
+                              src="https://www.googletagmanager.com/ns.html?id=GTM-MQNJTHNR"
+                              height="0"
+                              width="0"
+                              style={{ display: "none", visibility: "hidden" }}
+                         ></iframe>
+                    </noscript>
                     <QueryProvider>
-                         <body>
-                              {/* Google Tag Manager (noscript) */}
-                              {/* <noscript>
-                                   <iframe
-                                        src="https://www.googletagmanager.com/ns.html?id=GTM-MQNJTHNR"
-                                        height="0"
-                                        width="0"
-                                        style={{ display: "none", visibility: "hidden" }}
-                                   ></iframe>
-                              </noscript> */}
-                              <QueryProvider>
-                                   <MainProvider>
-                                        <div className="body-item">{children}</div>
-                                   </MainProvider>
-                              </QueryProvider>
-                         </body>
+                         <QueryProvider>
+                              <MainProvider>
+                                   <div className="body-item">{children}</div>
+                              </MainProvider>
+                         </QueryProvider>
                     </QueryProvider>
                </body>
           </html>
