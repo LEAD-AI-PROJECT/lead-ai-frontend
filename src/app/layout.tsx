@@ -30,6 +30,10 @@ export default function RootLayout({
                <body>
                     <QueryProvider>
                          <MainProvider>
+                              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque quis
+                              velit vel debitis nemo dolor tenetur, vitae saepe dolores obcaecati
+                              veritatis aspernatur porro quas, delectus expedita temporibus qui hic?
+                              Excepturi.
                               <div className="body-item">{children}</div>
                          </MainProvider>
                     </QueryProvider>
