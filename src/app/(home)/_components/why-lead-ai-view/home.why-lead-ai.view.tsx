@@ -35,7 +35,7 @@ export default function HomeWhyLeadAIView() {
           }
      };
 
-     if (isLoading) {
+     if (isLoading || !data) {
           return (
                <div className="lg:p-[3rem] md:p-[2rem] sm:p-[1rem] p-[10px]">
                     <div className="home-why-ai">
