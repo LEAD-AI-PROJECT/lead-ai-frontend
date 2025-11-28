@@ -14,8 +14,8 @@ set -euo pipefail
 # ---------------------------
 APP_NAME="landing-page"
 DOMAIN="aileadyou.com"
-REPO_URL="git@github.com:AI-Lead-You/lead-ai-frontend.git"
-REPO_BRANCH="main"
+REPO_URL="git@github.com:LEAD-AI-PROJECT/lead-ai-frontend.git"
+REPO_BRANCH="production"
 PORT="3000"
 NODE_MAJOR="22"
 APP_USER="deploy"
@@ -159,9 +159,11 @@ clone_build_release() {
 
   log "Building Next.js app..."
   if [[ -f "${ENV_FILE}" ]]; then
-    set -a; source "${ENV_FILE}"; set +a
+    log "Loading env from ${ENV_FILE} for build as ${APP_USER}"
+    su - "${APP_USER}" -c "cd '${new_release}' && set -a && source '${ENV_FILE}' && set +a && npm run build"
+  else
+    su - "${APP_USER}" -c "cd '${new_release}' && npm run build"
   fi
-  su - "${APP_USER}" -c "cd '${new_release}' && npm run build"
 
   log "Linking current -> ${new_release}"
   ln -sfn "${new_release}" "${CURRENT_LINK}"
@@ -306,8 +308,9 @@ write_start_wrapper
 write_ecosystem
 pm2_start_enable
 
-write_nginx_site
-obtain_tls
+# Nginx & TLS are now managed manually; avoid overwriting existing config
+# write_nginx_site
+# obtain_tls
 cleanup_old_releases
 post_deploy
 
