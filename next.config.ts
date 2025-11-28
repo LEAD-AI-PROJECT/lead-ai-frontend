@@ -2,7 +2,6 @@ import type { NextConfig } from "next";
 import path from "path";
 
 const nextConfig: NextConfig = {
-     // alias @public -> /public
      webpack(config) {
           if (!config.resolve) {
                config.resolve = { alias: {} } as any;
@@ -30,11 +29,11 @@ const nextConfig: NextConfig = {
           ],
      },
 
-     // 🔥 Tambah header cache untuk asset static Next.js
+     // 🔥 Tambahkan cache header untuk static files
      async headers() {
           return [
                {
-                    // semua JS/CSS/chunk di .next/static
+                    // Semua file hashed Next.js: JS, CSS, chunks
                     source: "/_next/static/:path*",
                     headers: [
                          {
@@ -43,11 +42,13 @@ const nextConfig: NextConfig = {
                          },
                     ],
                },
-               // OPTIONAL: kalau kamu punya asset hashed di /public (misal /assets/xxxxx.hash.png)
-               // tinggal buka komen block berikut dan sesuaikan path-nya:
+
+               // OPTIONAL: kalau kamu punya folder asset di /public/images dengan HASHED filename
+               // contoh: /images/logo.3876a9.png
+               // tinggal enable ini:
                /*
       {
-        source: "/assets/:path*",
+        source: "/images/:path*",
         headers: [
           {
             key: "Cache-Control",
