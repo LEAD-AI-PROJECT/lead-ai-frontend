@@ -13,8 +13,6 @@ import { useRouter } from "next/navigation";
 // Get token from cookies
 const getAuthToken = () => {
      const token = cookies.get("accessToken");
-     console.log("📦 Query - Token from cookie:", token ? "EXISTS" : "NULL");
-
      return token || "";
 };
 
@@ -31,7 +29,6 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
      config => {
           const token = getAuthToken();
-          console.log("🔑 Query Interceptor - Token:", token ? "✅ EXISTS" : "❌ NULL");
           if (token) {
                config.headers.Authorization = `Bearer ${token}`;
                console.log("✅ Query Authorization header set!");
